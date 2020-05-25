@@ -1,0 +1,69 @@
+This is BibTeX, Version 0.99d (TeX Live 2019/Debian)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: relatorio_parcial.aux
+The style file: biblatex.bst
+Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
+Reallocated global_strs (elt_size=20001) to 20 items from 10.
+Reallocated glb_str_end (elt_size=4) to 20 items from 10.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: relatorio_parcial-blx.bib
+Database file #2: bibliografianova.bib
+Repeated entry---line 241 of file bibliografianova.bib
+ : @misc{TCCKleber
+ :                ,
+I'm skipping whatever remains of this entry
+Biblatex version: 3.11
+Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+You've used 20 entries,
+            6304 wiz_defined-function locations,
+            1324 strings with 12787 characters,
+and the built_in function-call counts, 138461 in all, are:
+= -- 9873
+> -- 2922
+< -- 840
++ -- 3529
+- -- 1211
+* -- 10691
+:= -- 14956
+add.period$ -- 0
+call.type$ -- 20
+change.case$ -- 379
+chr.to.int$ -- 45
+cite$ -- 38
+duplicate$ -- 13991
+empty$ -- 12021
+format.name$ -- 1646
+if$ -- 28428
+int.to.chr$ -- 0
+int.to.str$ -- 52
+missing$ -- 0
+newline$ -- 713
+num.names$ -- 1015
+pop$ -- 6831
+preamble$ -- 1
+purify$ -- 525
+quote$ -- 0
+skip$ -- 4128
+stack$ -- 0
+substring$ -- 17306
+swap$ -- 3266
+text.length$ -- 694
+text.prefix$ -- 19
+top$ -- 1
+type$ -- 667
+warning$ -- 0
+while$ -- 1959
+width$ -- 0
+write$ -- 694
+(There was 1 error message)

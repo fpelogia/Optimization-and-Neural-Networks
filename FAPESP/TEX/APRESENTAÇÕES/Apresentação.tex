@@ -1,0 +1,317 @@
+\documentclass[a4,13pt]{beamer}
+\usetheme{JuanLesPins}
+\usepackage[latin1]{inputenc}
+\usepackage{amsfonts,amsmath}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{xcolor}
+\usepackage{rotating}
+\usepackage{listings}
+\usepackage{rotate}
+\usepackage{multirow}
+\newcommand{\cel}[1]{\multicolumn{1}{|c|}{#1}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\scriptsize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+\title{Montando um modelo dinâmico para construção e utilização de redes neurais}
+
+\author{\sc
+	Frederico José Ribeiro Pelogia\,\thanks{Universidade Federal de São Paulo ,\,  fredpelogia@outlook.com}\\[10pt]}
+\date{March 18, 2020}
+
+\begin{document}
+
+
+\begin{frame}
+
+\titlepage
+
+\end{frame}
+
+\begin{frame}{Como estávamos implementando}
+\begin{itemize}
+	\item Arquitetura fixa da rede.\\[15pt]
+	\item Backpropagation modelado como feito no papel.\\[15pt]
+	\item Código estruturado sem orientação a objeto.\\[15pt]
+	\item Dificuldade: Fazer testes para diferentes organizações de rede.\\[10pt]
+	
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}[fragile]{O que estávamos procurando}
+\begin{itemize}
+\item Procurávamos algum framework que nos permitisse montar uma estrutura de rede e receber o gradiente em relação aos parâmetros ajustáveis para refinarmos eles manualmente de diferentes maneiras.\\[6pt]
+
+\begin{lstlisting}[language=Python, caption=Interface do Keras]
+model = keras.models.Sequential([
+    keras.layers.Dense(units=16, input_dim=30, activation="relu"),
+    keras.layers.Dense(units=24, activation="relu"),  
+    keras.layers.Dropout(0.5),  
+    keras.layers.Dense(20, activation="relu"),  
+    keras.layers.Dense(24, activation="relu"),  
+    keras.layers.Dense(1, activation="sExperimentar a aplicação dos algoritmos implementados em Python, sem utilização de biblioigmoid"),  
+])
+\end{lstlisting}
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Nova proposta}
+\begin{itemize}
+\item Proposta: Montar uma pequena biblioteca de \textit{Deep Learning} que tenha interface parecida com a do Keras, mas que possamos construir os otimizadores como quisermos.\\ [10pt]
+\item Utilizando como base o código de \textbf{Joel Grus}.\\ [7pt]
+\begin{itemize}
+\item Joel é pesquisador no \textit{Allen Institute for AI}.\\ [6pt]
+\item escreveu o livro \textit{Data Science from Scratch}. \\[6pt]
+\item Github: https://github.com/joelgrus/joelnet
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Módulos do repositório joelnet}
+\begin{itemize}
+\item Arquivo \textbf{data.py}
+\begin{itemize}
+\item Controla a separação em "mini lotes" (\textit{batches}).
+\end{itemize}
+\item Arquivo \textbf{layers.py}
+\begin{itemize}
+\item Define o comportamento genérico de uma camada e também as diferentes funções de ativação possíveis.
+\end{itemize}
+\item Arquivo \textbf{loss.py}
+\begin{itemize}
+\item Define as possíveis formulações da função Erro da rede.
+\end{itemize}
+\item Arquivo \textbf{nn.py}
+\begin{itemize}
+\item Define a Classe \textit{NeuralNetwork}, que é a mais importante da biblioteca. Essa Classe é a portadora dos métodos responsáveis pelo Feed-Forward e pelo Backpropagation.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Módulos do repositório joelnet}
+\begin{itemize}
+\item Arquivo \textbf{optim.py}
+\begin{itemize}
+\item Define os métodos de otimização que poderão ser utilizados par ao treinamento das redes.
+\end{itemize}
+\item Arquivo \textbf{train.py}
+\begin{itemize}
+\item Define a função \textit{train}, que é responsável pelo treinamento da rede neural
+\end{itemize}
+\item Arquivo \textbf{tensor.py}
+\begin{itemize}
+\item Define o tipo abstrato \textit{Tensor}, que, para nossa implementação simples, nada mais é do que o \textit{ndarray} da biblioteca Numpy.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Alterações necessárias no módulo joelnet}
+Para utilizarmos o repositório apresentado, foram necessárias algumas modificações e a adição de algumas funcionalidades.
+\begin{itemize}
+\item Em \textbf{layers.py} foram adicionadas as funções de ativação Sigmoid e reLu, além de suas primeiras derivadas. 
+$$Sig(x) = \frac{1}{1 + e^{-x}} $$
+$$Sig'(x) = Sig(x)\cdot (1 - Sig(x))$$
+$$reLu(x) = \frac{x + \sqrt{x^2 + \epsilon}}{2}$$
+$$reLu'(x) = \frac{1}{2}\left(\frac{x}{\sqrt{x^2 + \epsilon}} + 1.0\right)$$
+\end{itemize}   
+\end{frame}
+
+\begin{frame}
+
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{comment}
+
+\begin{frame}{Augmented Lagrangian with box constraints for optimization}
+\begin{itemize}
+\item Theory with box constraints: $\min L(x,\lambda^k,\rho^k)$ s.t. $l \leq x \leq u$.\\[5pt]
+\begin{itemize}
+	\item The subproblems are well defined.\\[7pt]
+	\item The sequence lies in a compact set (therefore it has at least one limit point).\\[5pt]
+\end{itemize}
+\item $x^*$ is a stationary point of infeasibility measure.\\[13pt]
+\item \textcolor{red}{If $x^*$ is feasible, it's AKKT}.\\[13pt]
+\item With CCP it is KKT. \textcolor{red}{Two possibilities: KKT or not CCP.}\\[13pt]
+\item With QN it is KKT.\\[13pt]
+\item With MFCQ $\lambda^k$ converge to $\lambda^*$.
+\end{itemize}   
+\end{frame}
+
+
+\begin{frame}{Augmented Lagrangian and - Constraint Qualifications}
+\begin{figure}
+	\includegraphics[scale=0.60]{RelacaoCQs}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Augmented Lagrangian for GNEPs}
+\begin{itemize}
+\item Algorithm proposed by Kanzow (and independently by us).\\[8pt]
+\item Subproblems are Nash Equilibrium Problems:
+
+\begin{equation*}
+\begin{array}{lcl}
+SP_i(x_1,x_2): &\text{Min} & f_i(x_1,x_2)+\frac{\rho^k}{2} \max\left\{g_i(x_1,x_2)+\frac{\lambda^k_i}{\rho^k},0\right\}^2\\[-7pt]
+&\resizebox{!}{0.15cm}{$x_i$}\\[2pt]
+\end{array}
+\end{equation*}
+
+\item It is not known how to solve these subproblems in general. They can  even not have a solution!\\[8pt]
+\item There is not much strategies that explores the minimization structure.\\[8pt]
+\item How should I stop the algorithm (main and subproblems)?\\[8pt]
+\item What kind of convergence theorems do we get?
+\end{itemize}   
+\end{frame}
+
+
+
+\begin{frame}{How to stop the algorithm?}
+\begin{itemize}
+\item The algorithm generates $(x_1^k,x_2^k)$. $x_1^*$ and $x^*_2$ are  not known.\\[8pt]
+\item We have to test if $(x_1^k,x_2^k)$ is approximately KKT for both problems.\\[8pt]
+\item Joint AKKT  is a necessary condition for solution?\\[8pt]
+\pause
+\item \textcolor{red}{NO!!!}
+\begin{equation*}
+\begin{array}{cl}
+\text{Minimizar} & x_i\\[-7pt]
+\resizebox{!}{0.15cm}{$x_i$}\\[2pt]
+\text{Subject to:}& \left(x_1-x_2\right)^2\leq 0.\\[3pt]
+\end{array}
+\end{equation*}
+\item This problem is jointly convex!\\[8pt]
+\item This could happen even in the subproblem. \\[8pt]
+\item We show that AKKT is valid for constraints that are of the type $g_1(x):=h_1(x_1)h_2(x_2)+h_3(x_2)$ and also for b-Variational Equilibriums.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{What kind of convergence theorems do we get?}
+\begin{itemize}
+\item We need to define Constraint Qualifications without fixing $x^*_1$ and $x^*_2$.\\[13pt]
+\item CPLD (Kanzow): Gradients  $\nabla_{x_1} g_1(x_1,x_{2})$ PLD in $(x_1^*,x^*_2)$ implies that they remains PLD in a \textcolor{red}{neighborhood of $(x_1^*,x^*_2)$}.\\[13pt]
+\item CCP:  $\displaystyle{\limsup_{\color{red}{x\rightarrow x^*}}K(x_1,x_2)\subseteq K(x_1^*,x_2^*)}$.\\[13pt]
+\item CCP is the weakest condition that ensures that Joint AKKT implies KKT for GNEP.\\[13pt]
+\item CPLD does not imply QN in GNEPs (differently than in Optimization).
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{What kind of convergence theorems do we get?}
+\begin{itemize}
+\item The Augmented Lagrangian generates Joint AKKT sequences (when well defined and with convergent subsequences).\\[10pt]
+\item This means that it \textcolor{red}{discards} solutions of the problem!!!\\[10pt]
+\item Joint AKKT \textcolor{red}{does not imply} Parcial AKKT.\\[10pt]
+\item This means that the limit point can be something that we would not accept as a solution to the problem $P_1(x_1,x_{2}^*)$!\\[10pt]
+\item $x^*$ is a stationary point of the infeasibility game.\\[10pt]
+\item With CCP it's KKT.\\[10pt]
+\item With \textcolor{red}{QN},  $\lambda^k$ converge to $\lambda^*$ (New result for Optimization).
+\end{itemize}   
+\end{frame}
+
+\begin{frame}{Qualification Conditions and Augmented Lagrangian Convergence}
+\begin{figure}
+	\includegraphics[scale=0.60]{RelacaoCQsGNEP}
+\end{figure}
+\end{frame}
+
+\begin{frame}{What can happen to the AL for GNEPs?}
+\begin{itemize}
+\item The subproblem has no solution.\\[11pt]
+\item The subproblem has a solution but it is not approximately KKT.\\[11pt]
+\item The sequence generated is not bounded.\\[11pt]
+\item The limit point does not satisfy the CCP:\\[6pt]
+\begin{itemize}
+\item The point is not Partial AKKT.\\[8pt]
+\item The point is Partial AKKT.\\[8pt]
+\end{itemize}
+\item The point is KKT (without high expectations of being a minimizer, since it was hardly used a descent strategy when solving the subproblems).
+\end{itemize}   
+\end{frame}
+
+
+\begin{frame}{Conclusions}
+\begin{itemize}
+\item We defined new concepts of optimality conditions and CQs for GNEPs.\\[15pt]
+\item We presented the convergence of an AL method under weaker hypotheses than Kanzow.\\[15pt]
+\item We presented new results on the convergence of the Lagrange multipliers under the QN CQ, including for the case of optimization.\\[15pt]
+\item We show  classes of problems where joint AKKT is valid.\\[15pt]
+\item \textcolor{red}{Much more important than our results are our discussions.}
+\end{itemize}   
+\end{frame}
+
+
+
+\begin{frame}{Conclusions}
+\begin{itemize}
+	\item For methods for GNEPs, it is necessary to make a discussion about its well definition and on the existence of limit points.\\[8pt]
+	\item  A study of the computational behavior would be welcome, especially in cases where AKKT does not hold.\\[8pt]
+\item The development of a stop criterion that did not depend on KKT is important:\\[3pt]
+\begin{itemize}
+	\item A method that a priori excludes solutions is unreasonable. \\[4pt]
+	\item It would have good consequences even for optimization (Newton).\\[4pt]
+\end{itemize} 
+\item  It would be interesting to discuss whether joint AKKT is a sufficiently strong condition.\\[6pt]
+\item The true challenge is to build a method that is related to the structure, stability and dynamics of the game.
+\end{itemize}   
+\end{frame}
+
+
+
+\begin{frame}{The End!}
+\begin{center}
+	\textcolor{red}{\Huge{Thank you!}}\\
+	\vspace{2cm}
+	L. Felipe Bueno:\\
+	lfelipebueno@gmail.com
+\end{center}
+\end{frame}
+
+\end{comment}
+\end{document} 

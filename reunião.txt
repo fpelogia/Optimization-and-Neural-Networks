@@ -1,0 +1,24 @@
+Tópicos para reunião do dia 31/03/20
+
+- Entendi o que está acontecendo com os batches
+
+- Verifiquei se o gradiente está sendo calculado do jeito certo
+
+- Explorei o modelo, tentando entender melhor (dúvida enviada)
+
+- Implementei RMSProp, estou tentando implementar Nesterov
+
+- Vi que nos 1000 primeiros há 2 fraudes, mas tá dificil detectar
+
+- Coloquei vizualização antiga no square.py
+
+-Vi os notebooks com mais upvotes do database no Kaggle e eles usam redes com poucas camadas e com mais ou menos 30 nós em cada
+
+- Perguntar sobre o Congresso
+
+
+
+
+
+
+

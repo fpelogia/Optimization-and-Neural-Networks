@@ -1,0 +1,182 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{graphicx}
+\usepackage{amsmath,amsfonts,amsthm,amstext,amssymb}
+\usepackage[brazil]{babel}
+
+\usepackage{color}      
+\usepackage[utf8]{inputenc}
+
+\usepackage{csquotes}
+\usepackage[backend = bibtex,style=numeric-comp,sorting=nyt,date=year,isbn=false,maxnames=10]{biblatex}
+\addbibresource{bibliografianova.bib}
+\usepackage[a4paper,top=2cm,bottom=2cm,left=1cm,right=1cm]{geometry}
+\usepackage{setspace} \onehalfspacing
+\usepackage{lastpage}
+\usepackage{float}
+\usepackage{verbatim}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+
+
+\newcommand{\tb}{\mathbf{t}}
+\newcommand{\RRR}{\mathbf{R}}
+\newcommand{\bsrho}{\boldsymbol{\rho}}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\fm}{\mathbf{f}}
+\newcommand{\ds}{\displaystyle}
+
+\usepackage{multirow}
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
+\usepackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
+
+
+
+
+\begin{document}
+\begin{titlepage}
+   \begin{center}
+       \vspace*{1cm}
+ 
+       \Large
+       \textbf{Relatório Final de Iniciação Científica}\\
+       Métodos de Otimização aplicados a redes neurais para \\ detecção de anomalias em transações com cartão de crédito
+ 	   
+ 	   \normalsize
+       \vspace{5.5cm}
+        \textbf{Bolsista:} Frederico José Ribeiro Pelogia
+        
+       \vspace{0.5cm}
+        \textbf{Orientador:} Prof. Dr. Luís Felipe Bueno
+ 
+       \vspace{0.5cm}
+ 
+       \textbf{Número do Projeto FAPESP:} 2019/13420-4\\
+       
+      \vspace{0.5cm}
+      
+		\textbf{Período de vigência}: 01/09/2019 a 31/08/2020    
+      
+      \vspace{0.5cm}
+		\textbf{Período abordado pelo relatório:} 10/02/2020 a 31/08/2020
+ 
+       \vfill
+
+ 
+ 
+       Departamento de Ciência e Tecnologia\\
+       Universidade Federal de São Paulo\\
+       Abril de 2020
+       %-- de -------- de 2020
+ 
+   \end{center}
+\end{titlepage}
+
+\section*{Resumo do projeto}
+ Neste projeto pretende-se estudar métodos de otimização, em especial algoritmos estocásticos,
+aplicados ao treinamento de redes neurais. Em um trabalho recente proposto por L. F. Bueno e
+J. M. Martínez, On the complexity of solving feasibility problems, 2018, foi apresentado um algoritmo
+de primeira ordem com bons resultados de complexidade para problemas de quadrados mínimos.
+Um dos principais pontos da pesquisa deste projeto será desenvolver uma versão estocástica desse
+algoritmo. Serão analisados os desempenhos dos algoritmos estudados quando aplicados à detecção
+de fraudes em operações de cartão de crédito utilizando a base de dados Credit Card Fraud Detection
+do Kaggle.
+
+\section*{Resumo das realizações do período}
+Este relatório aborda as realizações do período de 10/02/2020 a 31/08/2020. Neste intervalo de tempo, as seguintes atividades foram concluídas:
+
+\begin{comment}
+A primeira tarefa a ser realiazada no próximo período é o estudo dos artigos \cite{fraudeItalia2} e \cite{fraudeItalia1}, que estava previsto para acontecer no primeiro semestre de atividades, porém foi atrasado pelo deslocamento da data de inicio do projeto em 1 mês.\\
+
+Após isso, seguimos com o planejamento inicial, que consiste em:
+\end{comment}
+\begin{itemize}
+
+\item Experimentar a aplicação dos algoritmos implementados em Python, sem utilização de bibliotecas prontas de \textit{machine learning}, à base de dados Credit Card Fraud Detection.
+
+\item Estudo do método de Levenberg–Marquardt, com base em \cite{TCCKleber}.
+\item Estudo teórico de \cite{bmLS}. 
+\item Testes numéricos associados a versões estocásticas presentes em \cite{bmLS}.
+\item Aplicações de técnicas de \cite{bmLS} no problema de interesse.
+\end{itemize}
+
+\newpage
+\section*{Aplicação dos algoritmos implementados ao problema de deteção de fraudes}
+\begin{itemize}
+\item A forma como os métodos estavam implementados não estava adequada para processar os dados do dataset do Kaggle, além de não possibilitar a alteração da estrutura da rede de forma dinâmica.
+\item A solução foi alterar as implementações para o paradigma de orientação a objeto, construindo uma pequena biblioteca de \textit{Deep Learning} com base na \textit{joelnet}, de Joel Grus.
+\item NOTA PARA FRED DO FUTURO: Transferir da apresentação de slides para este relatório a explicação sobre os módulos do \textit{joelnet} e as alterações que eu fiz.
+
+\item *Falar sobre os bias, que agora estão presentes.
+\item Após a reformulação das implementações, foi possível testar a capacidade dos algoritmos de detectar as fraudes do banco de dados Credit Card Fraud Detection.
+\item O método Adam foi o que se destacou para essa tarefa. Obteve o valor de AUCPRC próximo de 0.77 na maioria dos testes .
+\item *Apresentar comparação dos resultados do Adam do Keras e do implementado sob as mesmas condições de treino e teste.   
+
+\end{itemize}
+\section*{Estudo do Método de Levenberg–Marquardt}
+Primeiramente foi feito um estudo sobre alguns métodos clássicos de segunda ordem.
+\subsection*{Método de Newton}
+*falar sobre versão para zero de funções.
+
+A proposta parecida com a do método do gradiente mas com passo proporcional à inversa da matriz hessiana: 
+$$x_{k+1} = x_{k} + d_k ,$$
+onde $$\nabla ^2 f(x)  \cdot d_k =  -\nabla f(x^k)  .$$
+*talvez colocar teorema de convergência
+
+*explicar depois sobre motivação
+
+Como a matriz Hessiana possui formato $n \times n$, onde $n$ é o número de variáveis, seu cálculo demonstra-se custoso. O método é mais caro ainda, pois além de calcular essa matriz, resolve um sistema com ela.
+* pesquisar melhor sobre porque Hessianas são caras (argumentos melhores, com \textit{Big O notation}... no slide diz $O(n^3)$ em métodos exatos)
+
+\subsection*{Quasi-Newton: Método da Secante, Barzilai-Borwein e Gauss-Newton}
+A ideia principal dos métodos Quasi-Newton é herdar a eficácia do Método de Newton utilizando alternativas ou aproximações mais baratas da Hessiana.
+\subsubsection*{Método da Secante}
+Propõe a escolha de uma matriz $M_k$ tal que   
+		$$M_k s^{k-1}= y^{k-1} ,$$
+		onde $$s^{k-1}=x^k-x^{k-1} \text{ e } y^{k-1}=\nabla f(x^k)- \nabla f(x^{k-1}) .$$
+%Rever se eu escrevo F ou grad(F)...
+Assim, pode-se encontrar $d_k$ tal que
+		$$M_kd^k=-F(x^k)  ,$$
+		para que seja possível fazer $$x^{k+1}=x^k+d^k .$$
+
+\subsubsection*{Método de Barzilai-Borwein}
+Sua proposta é ser um intermediário entre o Método do Gradiente, que possui complexidade $O(n)$, e o Método da Secante, que tem complexidade $O(n^2)$. Sendo 
+$$s^{k-1}=x^k-x^{k-1} \text{ e } y^{k-1}=\nabla f(x^k)- \nabla f(x^{k-1}) ,$$
+A ideia é definir $M_k = \lambda_k I$, implicando que $\lambda_ks^k=y^k$. A melhor aproximação para essa equação é $$\lambda_k=\frac{(s^k)^Ty^k}{\|s^k\|^2}.$$
+Então, a direção tomada pelo método será $$ d = - \frac{1}{\lambda_k} \nabla f(x^k),$$
+sendo semelhante a uma iteração do Método do Gradiente com passo $\frac{1}{\lambda _k}$. O método também funciona bem em um formato estocástico, se assemelhando, nesse caso, ao SGD com passo $\frac{1}{\lambda _k}$.
+
+
+\subsubsection*{Método de Gauss-Newton}
+Problemas não lineares de quadrados mínimos podem ser formulados da seguinte forma 
+$$f(x)=\|F(x)\|^2=\sum_{i=1}^N f_i(x)^2.$$
+Neste caso, $$\nabla^2 f(x)= J_F(x)^T J_F(x)+\sum_{i=1}^N f_i(x) \nabla^2 f_i(x).$$
+Uma possível aproximação para a Hessiana é $J_F(x)^T J_F(x)$, tendo em vista que o segundo termo ficará muito pequeno quando próximo do mínimo da função.
+Assim, a direção de Gauss-Newton é a direção $d_k$ que satisfaz $$(J_F(x)^T J_F(x)) d_k = - \nabla f(x^k).$$
+Segundo \cite{artigoLevenberg}, o método é bem definido para quando $J_F(x)^T J_F(x)$ é invertível e, portanto, definida positiva. 
+
+\subsubsection*{Método de Levenberg-Marquardt}
+Por fim, o Método de Levenberg-Marquardt ...
+$$(J_F(x)^T J_F(x) + \lambda I) d_k = - \nabla f(x^k),$$
+onde $\lambda$ pode ser definido de diversas maneiras. Para a implementação realizada, foi considerado $$\lambda = ||\nabla f(x^k)||.$$ 
+Note que pequenos valores de $\lambda$ deixam o método mais parecido com o Método de Newton, enquanto valores altos de $\lambda$ aproximam o método do Método do Gradiente.
+
+
+
+
+\newpage
+
+\section*{Utilização de recursos da reseva técnica da bolsa}
+
+Durante o período abordado por este relatório, não houve utilização dos recursos financeiros da reserva técnica da bolsa.
+
+\newpage
+
+\printbibliography
+
+\end{document}
+
+
+

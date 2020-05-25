@@ -1,0 +1,164 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{graphicx}
+\usepackage{amsmath,amsfonts,amsthm,amstext,amssymb}
+\usepackage[brazil]{babel}
+
+\usepackage{color}      
+% Mudei aqui pois o Overleaf usa Linux para gerar, então precisa ser em utf8
+\usepackage[utf8]{inputenc}
+% Novos pacotes para rodar bibliografia. Style = numeric-comp é para ser numerado e 
+% sorting = nyt usa nome, ano e título para ordenar
+% No link http://tug.ctan.org/info/biblatex-cheatsheet/biblatex-cheatsheet.pdf tem tudo sobre biblatex
+\usepackage{csquotes}
+\usepackage[backend = bibtex,style=numeric-comp,sorting=nyt,date=year,isbn=false,maxnames=10]{biblatex}
+\addbibresource{bibliografianova.bib}
+\usepackage[a4paper,top=2cm,bottom=2cm,left=1cm,right=1cm]{geometry}
+\usepackage{setspace} \onehalfspacing
+\usepackage{lastpage}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+
+
+\newcommand{\tb}{\mathbf{t}}
+\newcommand{\RRR}{\mathbf{R}}
+\newcommand{\bsrho}{\boldsymbol{\rho}}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\fm}{\mathbf{f}}
+\newcommand{\ds}{\displaystyle}
+
+\usepackage{multirow}
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
+
+\title{\textbf{Projeto de Iniciação Científica} \\
+%\vspace{.4cm} 
+Métodos de Otimização aplicados a redes neurais para \\ detecção de anomalias em transações com cartão de crédito}
+
+\author{\textbf{Candidato:} Frederico José Ribeiro Pelogia\thanks{Graduando do Bacharelado em Ciência e Tecnologia,  Universidade Federal de São Paulo,
+Campus  São José dos Campos}
+\and  
+\textbf{Orientador:} Luís Felipe Bueno\thanks{Departamento de Ciência e Tecnologia, Instituto de Ciência e Tecnologia,  Universidade Federal de
+ São Paulo, Campus  São José dos Campos. Email: lfelipebueno@gmail.com}}
+
+\date{Maio de 2019}
+
+
+
+\begin{document}
+	
+
+	
+\maketitle
+
+\abstract Neste projeto pretende-se estudar métodos de otimização, em especial algoritmos estocásticos, aplicados ao treinamento de redes neurais. Em um trabalho recente proposto por L. F. Bueno e J.~M.~Martínez, \textit{On the complexity of solving feasibility problems}, 2018, foi apresentado um algoritmo de primeira ordem com bons resultados de complexidade para problemas de quadrados mínimos. Um  dos principais pontos da pesquisa deste projeto será desenvolver uma versão estocástica desse algoritmo.  Serão analisados os desempenhos dos algoritmos estudados quando aplicados à detecção de fraudes em operações de cartão de crédito utilizando a base de dados \textit{Credit Card Fraud Detection} do  Kaggle.  \\
+
+
+
+\noindent {\bf Palavras Chave:} {Otimização, Métodos Estocásticos, Redes Neurais, Deep Learning, Detecção de Anomalias, Detecção de Fraudes, Operações de Cartão de Crédito.}
+
+
+
+
+
+
+\section{Introdução ao tema escolhido}
+
+
+%Este projeto  contempla o estudo de métodos estocásticos de otimização  aplicados ao treinamento de redes neurais profundas para a identificação de anomalias.
+
+Em várias situações práticas é importante que se identifique dados que estão em desacordo com o comportamento normal esperado. Estes dados geralmente são chamados de anomalias ou \textit{outliers}, embora outras nomenclaturas possam ser utilizadas. A presença deste tipo de dados indica uma situação de interesse no processo pois pode representar desde um simples registro mal feito na base de dados até um comportamento que deve ser tratado de maneira diferente do procedimento padrão. 
+
+Uma revisão bem completa da literatura sobre a importância de se detectar anomalias é feita em \cite{Chandola:2009}. Um ponto abordado, originalmente tratado em   \cite{Aleskerov97}, é relativo a transações com cartão de crédito fora do histórico padrão de um cliente. Este tipo de anomalia pode indicar o uso indevido do cartão, resultante de fraude ou roubo, por exemplo. Algumas outras aplicações apresentadas incluem a atuação de hackers, detecção da presença de tumores e indicativo de falha em componentes de  espaçonaves.  Uma característica fundamental para se escolher a ferramenta a ser utilizada na detecção de anomalias é a existência ou não de um conjunto de dados previamente rotulado onde cada instância é classificada como normal ou anômala. 
+
+
+Neste projeto esperamos focar nossa atenção em problemas de identificação de anomalias relacionadas ao sistema financeiro. Pretendemos estudar a  base de dados \textit{Credit Card Fraud Detection} do  Kaggle.  O Kaggle é uma plataforma usual da literatura, fundada em 2010 por  Anthony Goldbloom e adquirida em 2017 pelo Google (Alphabet) \cite{blogThiago}. A base de dados de interesse consiste em dados sobre transações de cartão de crédito rotuladas como fraudulentas ou não.
+
+Técnicas de inteligência artificial têm sido utilizadas para para bases de dados rotuladas. Recentemente redes neurais profundas têm sido utilizadas com sucesso para classificar um grande volume de dados \cite{livroGoodfellow}. Matematicamente treinar uma rede neural pode ser formulada como o problema de otimização
+\begin{equation}\label{probotim}
+\text{minimizar } f(x) \equiv \sum_{i=1}^{N_{dados}} \left(R_i(x) \right)^2,
+\end{equation}
+onde $R_i(x)$ é a diferença entre o valor rotulado do dado $i$ e o valor previsto pela rede neural para este mesmo dado, usando parâmetros $x$. Esta será a abordagem que será usada neste projeto para estudar a base de dados mencionada. 
+
+Geralmente o número de dados em \eqref{probotim} é muito grande e portanto avaliar a soma completa é computacionalmente muito custoso. Técnicas onde, em cada iteração, apenas uma parte amostral dos dados são utilizados, originam os chamados métodos estocásticos de otimização.  Este tipo de abordagem tem sido comum neste ramo de aplicações, veja, por exemplo \cite{livroGoodfellow}. Além disso, em redes neurais profundas, o número de variáveis e de composições de funções é muito grande. Isso faz com que métodos de otimização que usem apenas informação de primeira ordem sejam mais eficientes para resolver o problema \eqref{probotim}.
+
+O estudo de redes neurais será feito com base no livro recém publicado pelo Prof. Weldon Lodwick (Colorado University) e coautores \cite{livroWeldon} e também pelo livro específico sobre \textit{deep learning} \cite{livroGoodfellow}. O prof. Weldon Lodwick está como professor visitante da Universidade Federal de São Paulo e será um colaborador importante deste projeto. Dois artigos \cite{fraudeItalia1,fraudeItalia2}, cujos estudos são utilizados no livro \cite{livroWeldon}, são referentes à identificação de anomalias no sistema de saúde italiano. Estes artigos também serão estudados durante este projeto. 
+
+Nesta mesma linha o orientador escreveu dois artigos científicos \cite{TCCLF, TCCKleber}, em fase de revisão em congressos, sobre métodos estocásticos de otimização aplicados em redes neurais. O primeiro destes artigos é em coautoria com Kléber A. Benatti e Tiago S. de Nazaré e o segundo com Luiz Felipe S. dos Santos, todos funcionários do Itaú-Unibanco. Estes tipos de métodos devem ser estudados pelo aluno durante o projeto, bem como os métodos estocásticos mais utilizados na literatura segundo \cite{livroGoodfellow}.
+
+
+Recentemente o orientador, em conjunto com J. M. Martínez (UNICAMP), disponibilizou um relatório técnico, que pode ser encontrado em \cite{bmLS}, sobre métodos de primeira ordem para resolver problemas do tipo \eqref{probotim}.
+Nesse trabalho é mostrado que o método proposto tem complexidade $O(\epsilon^{-2})$, que é o resultado ótimo para algoritmos para otimização sem restrições. Além disso, é mostrado um resultado inédito de complexidade $O(-\log(\epsilon))$ para problemas em que o jacobiano de $R(x)$ tem posto completo. Testes computacionais mais robustos estão sendo elaborados pelo prof. E. Birgin (USP), para que o trabalho seja submetido a alguma revista de boa reputação internacional. Seria interessante pensar quais dos resultados poderiam ser adaptados a problemas de redes neurais onde, obviamente, a hipótese de posto completo não é satisfeita. A verificação do desempenho de uma versão estocástica do método apresentado em \cite{bmLS} seria interessante e será a principal contribuição científica do candidato ao longo do projeto.
+
+\section{Justificativa}
+Os pontos de pesquisa deste projeto são de alto interesse direto da comunidade científica de otimização, tendo sido abordada  nos últimos anos por diversos pesquisadores de renome internacional.  Além disso, a própria aplicação de identificação de fraudes em cartões de crédito é muito relevante para várias instituições financeiras do país,  que podem estender o estudo para suas bases de dados reais e confidenciais. Mais ainda, os métodos estudados e desenvolvidos podem ser utilizados em diversas outras situações, tais como determinação linhas de crédito, decisões em transações cambiais, identificação de ataques cibernéticos, etc...  Esperamos contribuir com este processo sobretudo em parceria com o Sr. Mateus Polizeli, gerente de soluções analíticas na área de gestão de riscos do Itaú-Unibanco e aluno de mestrado do Programa de Pesquisa Operacional da UNIFESP-ITA, que tem trabalhado com técnicas estatísticas de detecção de anomalias em conjunto com professor orientador deste projeto. Desta forma o projeto pretende alcançar impactos científicos interessantes, bem como contribuir para o retorno mais direto para a sociedade da pesquisa científica. %Por fim, destacamos que o orientador ministrou o módulo de otimização do curso de Excelência em Data Science oferecido pelo ITA para funcionários do Itaú-Unibanco em 2018 e irá contribuir novamente com o programa no segundo semestre de 2019. Os resultados obtidos neste projeto enriquecerão muito a expertise dos envolvidos, resultando em um curso de qualidade ainda mais alta. 
+
+
+
+\section{Objetivos}
+O objetivo principal deste projeto é a capacitação humana em uma área em que o Brasil tem pouquíssimas pessoas qualificadas. Para isso esperamos obter implementações eficientes de métodos de otimização aplicados a redes neurais profundas. Pretendemos que os algoritmos implementados consigam identificar satisfatoriamente os dados fraudulentos da base de dados \textit{Credit Card Fraud Detection} do  Kaggle. Por fim, temos como objetivo específico central propor versões estocásticas de algoritmos que, baseados em \cite{bmLS}, sejam competitivos contra as principais referências da literatura. Possivelmente obteremos algum resultado de convergência em probabilidade e/ou de complexidade neste caso, embora isso seja bastante ambicioso para o primeiro ano do projeto. Mesmo que isso não seja possível, o objetivo de ganhar a familiaridade com este tópico seria muito importante para pesquisas futuras mais profundas. 
+
+
+\section{Cronograma e plano de trabalho das atividades}
+O cronograma das atividades a serem realizadas pelo aluno está listado a seguir. 
+\begin{enumerate}
+
+%	\item Maio e Junho de 2019: O aluno estudará as condições de otimalidade de primeira e segunda ordem utilizando o livro %\cite{griva}.
+%	\item Julho de 2019: Estudo e implementação de métodos tradicionais de otimização utilizando como referência o livro \cite{griva}.
+	\item Agosto de 2019: Revisão bibliográfica sobre detecção de anomalias tendo como base o artigo \cite{Chandola:2009}.
+	\item Setembro e outubro de 2019: Estudo  de redes neurais profundas utilizando os livros \cite{livroWeldon} e \cite{livroGoodfellow}.
+	\item Setembro a dezembro de 2019: Estudo e implementação dos métodos estocásticos mais utilizados na literatura segundo \cite{livroGoodfellow}.
+	\item Novembro e dezembro de 2019: Estudo dos artigos \cite{TCCLF, TCCKleber}, sobre métodos estocástico aplicados a redes neurais   e \cite{fraudeItalia1,fraudeItalia2}, sobre redes neurais aplicadas à detecção de fraudes.
+	\item Dezembro de 2019 a fevereiro de 2020: Familiarização com a base de dados  \textit{Credit Card Fraud Detection} do  Kaggle e testes numéricos para detecção de fraudes usando os algoritmos estudados e implementados nas etapas anteriores.
+	\item Fevereiro de 2020: Produção e envio do 1º Relatório Científico de Progresso para submissão à FAPESP.
+	\item Fevereiro a abril de 2020: Início do estudo do artigo \cite{bmLS}, desenvolvimento de métodos estocásticos associados e testes numéricos referentes aos mesmos.
+	\item Abril de 2020: Sintetização dos resultados obtidos e redação do resumo para o XXVIII Congresso de Iniciação Científica da UNIFESP.
+	\item Maio a julho de 2020 : Conclusão do desenvolvimento e testes numéricos  de métodos estocásticos associados ao artigo \cite{bmLS}.
+	\item Junho de 2020: Preparação  e apresentação do projeto no XXVIII Congresso de Iniciação Científica da UNIFESP.
+	\item Julho de 2020: Redação do Relatório Científico Final a ser enviado à FAPESP. \\
+	
+	
+\end{enumerate}
+
+\begin{table}[]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{Metas} & \multicolumn{12}{c|}{Meses}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \cline{2-13} 
+                       & \begin{tabular}[c]{@{}c@{}}2019\\ Ago\end{tabular} & \begin{tabular}[c]{@{}c@{}}2019\\ Set\end{tabular} & \begin{tabular}[c]{@{}c@{}}2019\\ Out\end{tabular} & \begin{tabular}[c]{@{}c@{}}2019\\ Nov\end{tabular} & \begin{tabular}[c]{@{}c@{}}2019\\ Dez\end{tabular} & \begin{tabular}[c]{@{}c@{}}2020\\ Jan\end{tabular} & \begin{tabular}[c]{@{}c@{}}2020\\ Fev\end{tabular} & \begin{tabular}[c]{@{}c@{}}2020\\ Mar\end{tabular} & \begin{tabular}[c]{@{}c@{}}2020\\ Abr\end{tabular} & \begin{tabular}[c]{@{}c@{}}2020\\ Mai\end{tabular} & \begin{tabular}[c]{@{}c@{}}2020\\ Jun\end{tabular} & \begin{tabular}[c]{@{}c@{}}2020\\ Jul\end{tabular}  \\ \hline
+1     & X   &     &     &     &     &     &     &     &     &     &     &    \\ \hline
+2     &     & X   & X   &     &     &     &     &     &     &     &     &    \\ \hline
+3     &     & X   & X   & X   & X   &     &     &     &     &     &     &     \\ \hline
+4     &     &     &     & X   & X   &     &     &     &     &     &     &       \\ \hline
+5     &     &     &     &     & X   & X   & X   &     &     &     &     &     \\ \hline
+6     &     &     &     &     &     &     & X   &     &     &     &     &      \\ \hline
+7     &     &     &     &     &     &     & X   & X   & X   &     &     &      \\ \hline
+8     &     &     &     &     &     &     &     &     & X   &     &     &      \\ \hline
+9     &     &     &     &     &     &     &     &     &     & X   & X   & X     \\ \hline
+10    &     &     &     &     &     &     &     &     &     &     & X   &      \\ \hline
+11    &     &     &     &     &     &     &     &     &     &     &     & X    \\ \hline
+\end{tabular}
+\caption{Tabela com o cronograma proposto}
+\label{tab:cronograma}
+\end{table}
+
+
+\section{Materiais e métodos}
+
+A metodologia a ser utilizada neste projeto é usual da área. O aluno apresentará semanalmente ao orientador os assuntos estudados, os testes numéricos realizados e uma análise parcial dos resultados obtidos. Reuniões com o Prof. Dr. Weldon Lodwick devem ocorrer a cada 2  meses para adaptarmos o andamento do projeto às suas sugestões. Relatórios parciais serão compartilhados com o Sr. Mateus Polizeli, gerente de soluções analíticas na área de gestão de riscos do Itaú-Unibanco, para que tenhamos  um retorno sobre a pertinência da pesquisa para o setor produtivo. Como usual, os dados  do \textit{Credit Card Fraud Detection} do  Kaggle são divididos em um conjunto de testes e um conjunto de validação. Os temas serão estudados em livros e artigos da área e os testes computacionais serão implementados em Python. 
+
+\section{Forma de Análise dos Resultados}
+Os resultados do estudo teórico do aluno serão analisados nas reuniões semanais com o professor orientador e com seminários para nossos parceiros, Prof. Weldon Lodowick e Sr. Mateus Polizeli. Os resultados computacionais dos métodos clássicos de otimização estocástica serão validados em problemas tradicionais da literatura. 
+As versões estocásticas de algoritmos que serão propostas com base em \cite{bmLS} vão ser comparadas com métodos clássicos de otimização estocástica tanto em relação à qualidade da solução encontrada quanto ao desempenho computacional do algoritmo.   A principal análise de interesse é quantificar o grau de precisão ao identificar  os dados fraudulentos da base de dados \textit{Credit Card Fraud Detection} do  Kaggle.
+
+
+% Mudei a forma da bibliografia
+%\bibliographystyle{acm}
+% \bibliographystyle{plain}
+% \bibliography{bibliografianova}
+\printbibliography
+\end{document}
+
+
+

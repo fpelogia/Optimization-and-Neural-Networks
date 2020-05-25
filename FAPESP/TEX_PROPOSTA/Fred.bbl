@@ -1,0 +1,460 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.0 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{nyt/global//global/global}
+  \entry{Aleskerov97}{inproceedings}{}
+    \name{author}{3}{}{%
+      {{hash=AE}{%
+         family={Aleskerov},
+         familyi={A\bibinitperiod},
+         given={Emin},
+         giveni={E\bibinitperiod},
+      }}%
+      {{hash=FB}{%
+         family={Freisleben},
+         familyi={F\bibinitperiod},
+         given={Bernd},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=RB}{%
+         family={Rao},
+         familyi={R\bibinitperiod},
+         given={Bharat},
+         giveni={B\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{AEFBRB1}
+    \strng{fullhash}{AEFBRB1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \field{booktitleaddon}{\textit{Proceedings of IEEE/IAFE Conference on
+  Computational Intelligence for Financial Engineering}}
+    \verb{doi}
+    \verb 10.1109/CIFER.1997.618940
+    \endverb
+    \field{isbn}{0-7803-4133-3}
+    \field{pages}{220 \bibrangedash  226}
+    \field{title}{CARDWATCH: A neural network based database mining system for
+  credit card fraud detection}
+    \field{month}{04}
+    \field{year}{1997}
+  \endentry
+
+  \entry{TCCKleber}{misc}{}
+    \name{author}{3}{}{%
+      {{hash=BKA}{%
+         family={Benatti},
+         familyi={B\bibinitperiod},
+         given={K.\bibnamedelima A.},
+         giveni={K\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=NTS}{%
+         family={Nazar{\'e}},
+         familyi={N\bibinitperiod},
+         given={T.\bibnamedelima S.},
+         giveni={T\bibinitperiod\bibinitdelim S\bibinitperiod},
+      }}%
+      {{hash=BLF}{%
+         family={Bueno},
+         familyi={B\bibinitperiod},
+         given={L.\bibnamedelima F.},
+         giveni={L\bibinitperiod\bibinitdelim F\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BKANTSBLF1}
+    \strng{fullhash}{BKANTSBLF1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{note}{Artigo submetido}
+    \field{title}{O {m\'etodo} de Levenberg-Marquardt {estoc\'astico} aplicado
+  {\`a} redes neurais artificiais}
+    \field{year}{2019}
+  \endentry
+
+  \entry{bmLS}{report}{}
+    \name{author}{2}{}{%
+      {{hash=BLF}{%
+         family={Bueno},
+         familyi={B\bibinitperiod},
+         given={L.\bibnamedelima F.},
+         giveni={L\bibinitperiod\bibinitdelim F\bibinitperiod},
+      }}%
+      {{hash=MJM}{%
+         family={Mart{\'i}nez},
+         familyi={M\bibinitperiod},
+         given={J.\bibnamedelima M.},
+         giveni={J\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Optimization Online}%
+    }
+    \strng{namehash}{BLFMJM1}
+    \strng{fullhash}{BLFMJM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{title}{On the complexity of solving feasibility problems}
+    \verb{url}
+    \verb http://www.optimization-online.org/DB\_HTML/2018/11/6929.html
+    \endverb
+    \field{type}{techreport}
+    \field{year}{2018}
+  \endentry
+
+  \entry{livroWeldon}{book}{}
+    \name{author}{6}{}{%
+      {{hash=BM}{%
+         family={Buscema},
+         familyi={B\bibinitperiod},
+         given={M.},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=LWA}{%
+         family={Lodwick},
+         familyi={L\bibinitperiod},
+         given={W.\bibnamedelima A.},
+         giveni={W\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=BM}{%
+         family={Breda},
+         familyi={B\bibinitperiod},
+         given={M.},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=GM}{%
+         family={Guilia},
+         familyi={G\bibinitperiod},
+         given={M.},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=NF}{%
+         family={Newman},
+         familyi={N\bibinitperiod},
+         given={F.},
+         giveni={F\bibinitperiod},
+      }}%
+      {{hash=AM}{%
+         family={Asadi},
+         familyi={A\bibinitperiod},
+         given={M.},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer-Verlag}%
+    }
+    \strng{namehash}{BMLWABMGMNFAM1}
+    \strng{fullhash}{BMLWABMGMNFAM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \verb{doi}
+    \verb https://doi.org/10.1007/978-3-319-75049-1
+    \endverb
+    \field{title}{Artificial Adaptive Systems Using Auto Contractive Maps:
+  Theory, Applications and Extensions}
+    \list{location}{1}{%
+      {New York}%
+    }
+    \field{year}{2018}
+  \endentry
+
+  \entry{Chandola:2009}{article}{}
+    \name{author}{3}{}{%
+      {{hash=CV}{%
+         family={Chandola},
+         familyi={C\bibinitperiod},
+         given={Varun},
+         giveni={V\bibinitperiod},
+      }}%
+      {{hash=BA}{%
+         family={Banerjee},
+         familyi={B\bibinitperiod},
+         given={Arindam},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=KV}{%
+         family={Kumar},
+         familyi={K\bibinitperiod},
+         given={Vipin},
+         giveni={V\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {ACM}%
+    }
+    \keyw{Anomaly detection, outlier detection}
+    \strng{namehash}{CVBAKV1}
+    \strng{fullhash}{CVBAKV1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \verb{doi}
+    \verb 10.1145/1541880.1541882
+    \endverb
+    \field{issn}{0360-0300}
+    \field{number}{3}
+    \field{pages}{15:1\bibrangedash 15:58}
+    \field{title}{Anomaly Detection: A Survey}
+    \verb{url}
+    \verb http://doi.acm.org/10.1145/1541880.1541882
+    \endverb
+    \field{volume}{41}
+    \list{location}{1}{%
+      {New York, NY, USA}%
+    }
+    \field{journaltitle}{ACM Comput. Surv.}
+    \field{year}{2009}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{TCCLF}{misc}{}
+    \name{author}{2}{}{%
+      {{hash=DSLF}{%
+         family={Dos\bibnamedelima Santos},
+         familyi={D\bibinitperiod\bibinitdelim S\bibinitperiod},
+         given={L.\bibnamedelima F.},
+         giveni={L\bibinitperiod\bibinitdelim F\bibinitperiod},
+      }}%
+      {{hash=BLF}{%
+         family={Bueno},
+         familyi={B\bibinitperiod},
+         given={L.\bibnamedelima F.},
+         giveni={L\bibinitperiod\bibinitdelim F\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{DSLFBLF1}
+    \strng{fullhash}{DSLFBLF1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{D}
+    \field{sortinithash}{D}
+    \field{note}{Artigo submetido}
+    \field{title}{Stochastic Variance Reduction with Adaptive Optimization
+  Methods}
+    \field{year}{2019}
+  \endentry
+
+  \entry{livroGoodfellow}{book}{}
+    \name{author}{3}{}{%
+      {{hash=GI}{%
+         family={Goodfellow},
+         familyi={G\bibinitperiod},
+         given={I.},
+         giveni={I\bibinitperiod},
+      }}%
+      {{hash=BY}{%
+         family={Bengio},
+         familyi={B\bibinitperiod},
+         given={Y.},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=CA}{%
+         family={Courville},
+         familyi={C\bibinitperiod},
+         given={A.},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {MIT press}%
+    }
+    \strng{namehash}{GIBYCA1}
+    \strng{fullhash}{GIBYCA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{title}{Deep Learning}
+    \list{location}{1}{%
+      {Massachussets}%
+    }
+    \field{year}{2016}
+  \endentry
+
+  \entry{fraudeItalia2}{article}{}
+    \name{author}{8}{}{%
+      {{hash=MFS}{%
+         family={Mennini},
+         familyi={M\bibinitperiod},
+         given={F.\bibnamedelima S.},
+         giveni={F\bibinitperiod\bibinitdelim S\bibinitperiod},
+      }}%
+      {{hash=GL}{%
+         family={Gittoa},
+         familyi={G\bibinitperiod},
+         given={L.},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=SR}{%
+         family={S.},
+         familyi={S\bibinitperiod},
+         given={Russoa},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=CA}{%
+         family={Cicchetti},
+         familyi={C\bibinitperiod},
+         given={A.},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=RM}{%
+         family={Ruggeri},
+         familyi={R\bibinitperiod},
+         given={M.},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=CS}{%
+         family={Coretti},
+         familyi={C\bibinitperiod},
+         given={S.},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=MG}{%
+         family={Maurelli},
+         familyi={M\bibinitperiod},
+         given={G.},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=BPM}{%
+         family={Buscema},
+         familyi={B\bibinitperiod},
+         given={P.\bibnamedelima M.},
+         giveni={P\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer Science}%
+    }
+    \strng{namehash}{MFSGLSRCARMCSMGBPM1}
+    \strng{fullhash}{MFSGLSRCARMCSMGBPM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{number}{3}
+    \field{pages}{1261\bibrangedash 1276}
+    \field{title}{Artificial neural networks and their potentialities in
+  analyzing budget health data: an application for Italy of what-if theory}
+    \field{volume}{51}
+    \field{journaltitle}{Quality \& Quantity: International Journal of
+  Methodology}
+    \field{year}{2016}
+  \endentry
+
+  \entry{fraudeItalia1}{article}{}
+    \name{author}{8}{}{%
+      {{hash=MFS}{%
+         family={Mennini},
+         familyi={M\bibinitperiod},
+         given={F.\bibnamedelima S.},
+         giveni={F\bibinitperiod\bibinitdelim S\bibinitperiod},
+      }}%
+      {{hash=GL}{%
+         family={Gittoa},
+         familyi={G\bibinitperiod},
+         given={L.},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=SR}{%
+         family={S.},
+         familyi={S\bibinitperiod},
+         given={Russoa},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=CA}{%
+         family={Cicchetti},
+         familyi={C\bibinitperiod},
+         given={A.},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=RM}{%
+         family={Ruggeri},
+         familyi={R\bibinitperiod},
+         given={M.},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=CS}{%
+         family={Coretti},
+         familyi={C\bibinitperiod},
+         given={S.},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=MG}{%
+         family={Maurelli},
+         familyi={M\bibinitperiod},
+         given={G.},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=BPM}{%
+         family={Buscema},
+         familyi={B\bibinitperiod},
+         given={P.\bibnamedelima M.},
+         giveni={P\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Elsevier}%
+    }
+    \strng{namehash}{MFSGLSRCARMCSMGBPM1}
+    \strng{fullhash}{MFSGLSRCARMCSMGBPM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{title}{Does regional belonging explain the similarities in the
+  expenditure determinants of Italian healthcare deliveries? An approach based
+  on Artificial Neural Networks}
+    \field{journaltitle}{Economic Analysis and Policy}
+    \field{year}{2017}
+  \endentry
+
+  \entry{blogThiago}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=RT}{%
+         family={Ribeiro},
+         familyi={R\bibinitperiod},
+         given={Thiago},
+         giveni={T\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {TLT - Tirando {Li\c{c}\~oes} de Tudo}%
+    }
+    \strng{namehash}{RT1}
+    \strng{fullhash}{RT1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \field{title}{Kaggle - {O} que {\'e}? {C}omo funciona?}
+    \verb{url}
+    \verb http://tirandolicoesdetudo.com.br/kaggle-o-que-e-como-funciona
+    \endverb
+    \field{year}{2018}
+  \endentry
+\enddatalist
+\endinput

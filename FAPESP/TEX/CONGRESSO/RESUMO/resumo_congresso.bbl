@@ -1,0 +1,102 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.0 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{nyt/global//global/global}
+  \entry{bmLS}{report}{}
+    \name{author}{2}{}{%
+      {{hash=BLF}{%
+         family={Bueno},
+         familyi={B\bibinitperiod},
+         given={L.\bibnamedelima F.},
+         giveni={L\bibinitperiod\bibinitdelim F\bibinitperiod},
+      }}%
+      {{hash=MJM}{%
+         family={Mart{\'i}nez},
+         familyi={M\bibinitperiod},
+         given={J.\bibnamedelima M.},
+         giveni={J\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Optimization Online}%
+    }
+    \strng{namehash}{BLFMJM1}
+    \strng{fullhash}{BLFMJM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{title}{On the complexity of solving feasibility problems}
+    \verb{url}
+    \verb http://www.optimization-online.org/DB\_HTML/2018/11/6929.html
+    \endverb
+    \field{type}{techreport}
+    \field{year}{2018}
+  \endentry
+
+  \entry{Chandola:2009}{article}{}
+    \name{author}{3}{}{%
+      {{hash=CV}{%
+         family={Chandola},
+         familyi={C\bibinitperiod},
+         given={Varun},
+         giveni={V\bibinitperiod},
+      }}%
+      {{hash=BA}{%
+         family={Banerjee},
+         familyi={B\bibinitperiod},
+         given={Arindam},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=KV}{%
+         family={Kumar},
+         familyi={K\bibinitperiod},
+         given={Vipin},
+         giveni={V\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {ACM}%
+    }
+    \keyw{Anomaly detection, outlier detection}
+    \strng{namehash}{CVBAKV1}
+    \strng{fullhash}{CVBAKV1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \verb{doi}
+    \verb 10.1145/1541880.1541882
+    \endverb
+    \field{issn}{0360-0300}
+    \field{number}{3}
+    \field{pages}{15:1\bibrangedash 15:58}
+    \field{title}{Anomaly Detection: A Survey}
+    \verb{url}
+    \verb http://doi.acm.org/10.1145/1541880.1541882
+    \endverb
+    \field{volume}{41}
+    \list{location}{1}{%
+      {New York, NY, USA}%
+    }
+    \field{journaltitle}{ACM Comput. Surv.}
+    \field{month}{07}
+    \field{year}{2009}
+  \endentry
+\enddatalist
+\endinput

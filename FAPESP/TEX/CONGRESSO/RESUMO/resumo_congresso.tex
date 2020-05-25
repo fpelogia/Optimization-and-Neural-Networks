@@ -1,0 +1,71 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{graphicx}
+\usepackage{amsmath,amsfonts,amsthm,amstext,amssymb}
+\usepackage[brazil]{babel}
+
+\usepackage{color}      
+% Mudei aqui pois o Overleaf usa Linux para gerar, então precisa ser em utf8
+\usepackage[utf8]{inputenc}
+% Novos pacotes para rodar bibliografia. Style = numeric-comp é para ser numerado e 
+% sorting = nyt usa nome, ano e título para ordenar
+% No link http://tug.ctan.org/info/biblatex-cheatsheet/biblatex-cheatsheet.pdf tem tudo sobre biblatex
+\usepackage{csquotes}
+\usepackage[backend = bibtex,style=numeric-comp,sorting=nyt,date=year,isbn=false,maxnames=10]{biblatex}
+\addbibresource{bibliografianova.bib}
+\usepackage[a4paper,top=2cm,bottom=2cm,left=1.5cm,right=1.5cm]{geometry}
+\usepackage{setspace} \onehalfspacing
+\usepackage{lastpage}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+
+
+\newcommand{\tb}{\mathbf{t}}
+\newcommand{\RRR}{\mathbf{R}}
+\newcommand{\bsrho}{\boldsymbol{\rho}}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\fm}{\mathbf{f}}
+\newcommand{\ds}{\displaystyle}
+
+\usepackage{multirow}
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
+
+\title{\large\textbf{Resumo para o Congresso Acadêmico UNIFESP 2020} \\
+%\vspace{.4cm} 
+Métodos de Otimização aplicados a redes neurais para \\ detecção de anomalias em transações com cartão de crédito}
+
+\author{\large\textbf{Aluno:} Frederico José Ribeiro Pelogia\thanks{Graduando do Bacharelado em Ciência e Tecnologia,  Universidade Federal de São Paulo,
+Campus  São José dos Campos. Email: fredpelogia@outlook.com}
+\and  
+\textbf{Orientador:} Luís Felipe Bueno\thanks{Departamento de Ciência e Tecnologia, Instituto de Ciência e Tecnologia,  Universidade Federal de
+ São Paulo, Campus  São José dos Campos. Email: lfelipebueno@gmail.com}}
+
+\date{Abril de 2020}
+
+
+
+\begin{document}
+	
+
+	
+\maketitle
+
+\abstract A detecção de transações fraudulentas de cartão de crédito tem expressiva importância nos tempos atuais, tendo em vista o grande volume de operações desse tipo. A utilização de técnicas de aprendizado de máquina tem se mostrado eficiente para detecção de anomalias\cite{Chandola:2009} e, por esse motivo, diversas instituições financeiras possuem setores especializados nesse tipo de algoritmo.
+Este trabalho apresentará os fundamentos de redes neurais, assim como alguns dos métodos de otimização, em sua maioria estocásticos,  mais utilizados atualmente para fazer o treinamento dessas. Também serão apresentados os resultados preliminares da aplicação dos algoritmos implementados ao problema de detecção de fraudes, utilizando a base de dados “Credit Card Fraud Detection”, da plataforma Kaggle. Um dos principais pontos para o restante do projeto será desenvolver uma versão estocástica do algoritmo de primeira ordem proposto em \cite{bmLS}, que obteve bons resultados de complexidade para problemas de quadrados mínimos.\\
+
+
+
+\noindent {\bf Palavras Chave:} {Otimização, Métodos Estocásticos, Redes Neurais, Deep Learning, Detecção de Anomalias.}
+
+
+% Mudei a forma da bibliografia
+%\bibliographystyle{acm}
+% \bibliographystyle{plain}
+% \bibliography{bibliografianova}
+\printbibliography
+\end{document}
+
+
+
