@@ -12,7 +12,7 @@ from sklearn.model_selection import train_test_split, cross_val_score, GridSearc
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import precision_recall_curve, auc, precision_score
 
-data = pd.read_csv("creditcard.csv")
+data = pd.read_csv("../../Datasets/creditcard.csv")
 
 pd.set_option("display.float", "{:.2f}".format)
 
