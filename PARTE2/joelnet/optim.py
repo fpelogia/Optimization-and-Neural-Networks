@@ -18,17 +18,9 @@ class SGD(Optimizer):
         self.lr = lr
 
     def step(self, net: NeuralNet) -> None:
-        # print('\n\n\n\n\n\n\n')
-        # for param, grad in net.params_and_grads():
-        #     print(f'param: {param} \ngrad: {grad}')
-        # print('\n\n\n\n\n\n\n')
         for param, grad in net.params_and_grads():
             param -= self.lr *grad
 
-            # try:
-            #     param -= self.lr *grad
-            # except ValueError: 
-            #     param -= self.lr *grad[0]
             
 
 class RMSProp(Optimizer):
@@ -42,7 +34,7 @@ class RMSProp(Optimizer):
 
         i = 0
         for param, grad in net.params_and_grads():
-            #try:
+
             G_temp = self.gamma*self.G[i] + (1-self.gamma)*(grad**2)
             param -= (self.lr/(np.sqrt(G_temp + self.epsilon)))*grad
             # except ValueError:
@@ -220,33 +212,62 @@ class LM_cond (Optimizer):
 class GD_cond(Optimizer):
     def __init__(self, lr: float = 0.001) -> None:
         self.lr = lr
-        self.alpha = 1e3
+        self.alpha = 1e-1
 
     def step(self, net: NeuralNet) -> None:
         for param, grad in net.params_and_grads():
 
             predicted = net.forward(net.curr_batch.inputs)
             loss_old = net.loss_f.loss(predicted, net.curr_batch.targets)
-            
             old_param = copy.deepcopy(param)
-            
             param -= self.lr *grad
-            count = 0
-            
+
 
             predicted = net.forward(net.curr_batch.inputs)
             loss = net.loss_f.loss(predicted, net.curr_batch.targets)
-            print(f'\nloss: {loss} \nloss_anterior: {loss_old}\ntermo subtraido:{self.alpha*(np.linalg.norm(param - old_param))**2}\nvalor_esperado: {loss_old - self.alpha*(np.linalg.norm(param - old_param))**2}')
-            while not loss <= loss_old - self.alpha*(np.linalg.norm(param - old_param))**2:
-                print('Não passou')
-                print(f'\nloss: {loss} \nloss_anterior: {loss_old}\ntermo subtraido:{self.alpha*(np.linalg.norm(param - old_param))**2}\nvalor_esperado: {loss_old - self.alpha*(np.linalg.norm(param - old_param))**2}')
+
+            print(f'lr: {self.lr}')
+
+            suf = loss_old - self.alpha*(np.linalg.norm(param - old_param))**2
+            while not loss <= suf :
                 self.lr = self.lr / 2.0
                 param = old_param - self.lr *grad
+                print(f'\nPARAM: {param}\n')
 
-                if count > 10:
-                    break
-
-                count = count + 1
-            print('PASSEI')
+                predicted = net.forward(net.curr_batch.inputs)
+                loss = net.loss_f.loss(predicted, net.curr_batch.targets)
+                print(f'\nloss: {loss}\nloss_desejada: {loss_old - self.alpha*(np.linalg.norm(param - old_param))**2}')
 
 
+
+    # def step(self, net: NeuralNet) -> None:
+    #     for param, grad in net.params_and_grads():
+
+    #         # predicted = net.forward(net.curr_batch.inputs)
+    #         # loss_old = net.loss_f.loss(predicted, net.curr_batch.targets)
+            
+    #         # old_param = copy.deepcopy(param)
+    #         param -= self.lr *grad
+    #         count = 0
+            
+
+    #         # predicted = net.forward(net.curr_batch.inputs)
+    #         # loss = net.loss_f.loss(predicted, net.curr_batch.targets)
+
+    #         #print(f'\nloss: {loss} \nloss_anterior: {loss_old}\ntermo subtraido:{self.alpha*(np.linalg.norm(param - old_param))**2}\nvalor_esperado: {loss_old - self.alpha*(np.linalg.norm(param - old_param))**2}')
+            
+    #         # while not loss <= loss_old - self.alpha*(np.linalg.norm(param - old_param))**2:
+    #         #     print('Não passou')
+    #         #     print(f'\nloss: {loss} \nloss_anterior: {loss_old}\ntermo subtraido:{self.alpha*(np.linalg.norm(param - old_param))**2}\nvalor_esperado: {loss_old - self.alpha*(np.linalg.norm(param - old_param))**2}')
+    #         #     self.lr = self.lr / 2.0
+    #         #     param = old_param - self.lr *grad
+
+    #         #     if count > 10:
+    #         #         break
+
+    #         #     count = count + 1
+    #         print('PASSEI')
+
+
+
+            

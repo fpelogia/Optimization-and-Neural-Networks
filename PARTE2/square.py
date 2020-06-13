@@ -45,10 +45,10 @@ net = NeuralNet([
 ])
 
 
-n_epochs = 100
+n_epochs = 10
 
 #loss_list = train(net, inputs,targets, optimizer = Adam(lr = 1e-2, gamma1 = 0.3, gamma2 = 0.3),iterator = BatchIterator(batch_size = 5), num_epochs = 1000)
-loss_list = train(net, inputs,targets, loss = MSE() ,optimizer = GD_cond(1e-4),iterator = BatchIterator(batch_size =  5, shuffle = False), num_epochs = n_epochs)
+loss_list = train(net, inputs,targets, loss = MSE() ,optimizer = GD_cond(1e-2),iterator = BatchIterator(batch_size =  5, shuffle = False), num_epochs = n_epochs)
 
 
 
@@ -76,3 +76,5 @@ plt.scatter(aux,aux**2,s = 30, c = "red")
 plt.plot(ex,ey)
 plt.savefig(f'Figuras/Square/EQ.png', format='png')
 plt.show()
+
+			
