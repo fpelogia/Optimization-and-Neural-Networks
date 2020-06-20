@@ -151,68 +151,20 @@ class LM (Optimizer):
     def step(self, net: NeuralNet) -> None:
 
         for param, grad, jac in net.params_and_grads_v3():
-            lamb = max( np.linalg.norm(grad), 1e-4)
+            lamb = max( np.linalg.norm(grad), 1e-6)
             JTJ = jac.T@jac
-            #print(f'jtj:\n{JTJ} \njtjshp: {JTJ.shape}')
-            #print(f'grad:\n{grad} \ngradshp: {grad.shape}')
             sh = grad.shape
             d = np.linalg.solve(JTJ + lamb*np.eye(len(JTJ)), -grad.flatten())
             d = d.reshape(sh)
-            #print('HAHHA: ', d.reshape(sh))
-            #param -= self.lr *grad
-            # try:
-            #     d = np.linalg.solve(JTJ + lamb*np.eye(len(JTJ)), -grad)
-            # except ValueError:
-            #     d = np.linalg.solve(JTJ + lamb*np.eye(len(JTJ)), -grad.T)
-
-            #d = -1*self.lr*grad 
-            ang =  np.arccos(np.inner(-grad.flatten(), d.flatten()) / (np.linalg.norm(-grad.flatten()) * np.linalg.norm(d.flatten())) )
-            print('ângulo em graus: ', np.degrees(ang) )
             param += d
-            # try:
-            #     param += d
-            # except ValueError: 
-            #     param += d[0]
 
 
-class LM_cond (Optimizer):
-    def __init__(self) -> None:
-        self.sig_min = 1e-3
-        self.sig_max = 1e-2
-        self.M = 1e-3
-        self.gamma = 1e-3
-
-    def step(self, net: NeuralNet) -> None:
-
-        for param, grad, jac in net.params_and_grads_v3():
-            lamb = max( np.linalg.norm(grad), 1e-4)
-            JTJ = jac.T@jac
-            #print(f'jtj:\n{JTJ} \njtjshp: {JTJ.shape}')
-            #print(f'grad:\n{grad} \ngradshp: {grad.shape}')
-            sh = grad.shape
-            d = np.linalg.solve(JTJ + lamb*np.eye(len(JTJ)), -grad.flatten())
-            d = d.reshape(sh)
-            #print('HAHHA: ', d.reshape(sh))
-            #param -= self.lr *grad
-            # try:
-            #     d = np.linalg.solve(JTJ + lamb*np.eye(len(JTJ)), -grad)
-            # except ValueError:
-            #     d = np.linalg.solve(JTJ + lamb*np.eye(len(JTJ)), -grad.T)
-
-            #d = -1*self.lr*grad 
-            ang =  np.arccos(np.inner(-grad.flatten(), d.flatten()) / (np.linalg.norm(-grad.flatten()) * np.linalg.norm(d.flatten())) )
-            print('ângulo em graus: ', np.degrees(ang) )
-            param += d
-            # try:
-            #     param += d
-            # except ValueError: 
-            #     param += d[0]
 
 
 class GD_cond(Optimizer):
-    def __init__(self, lr: float = 0.001) -> None:
+    def __init__(self, lr: float = 0.00001) -> None:
         self.lr = lr
-        self.alpha = 1e-1
+        self.alpha = 1e-2
 
     def step(self, net: NeuralNet) -> None:
         for param, grad in net.params_and_grads():
@@ -221,53 +173,72 @@ class GD_cond(Optimizer):
             loss_old = net.loss_f.loss(predicted, net.curr_batch.targets)
             old_param = copy.deepcopy(param)
             param -= self.lr *grad
+            count = 0
 
 
             predicted = net.forward(net.curr_batch.inputs)
             loss = net.loss_f.loss(predicted, net.curr_batch.targets)
 
-            print(f'lr: {self.lr}')
+            
 
-            suf = loss_old - self.alpha*(np.linalg.norm(param - old_param))**2
-            while not loss <= suf :
-                self.lr = self.lr / 2.0
-                param = old_param - self.lr *grad
-                print(f'\nPARAM: {param}\n')
+            
+            temp_lr = self.lr
+            while not loss <= loss_old - self.alpha*(np.linalg.norm(param - old_param))**2:
 
+            	print(f'lr: {temp_lr}')
+                
+            	temp_lr = temp_lr / 2.0
+
+            	param = old_param - temp_lr *grad
+
+            	predicted = net.forward(net.curr_batch.inputs)
+            	loss = net.loss_f.loss(predicted, net.curr_batch.targets)
+            	#print(f'\nloss: {loss}\nloss_desejada: {loss_old - self.alpha*(np.linalg.norm(param - old_param))**2}')
+            	if temp_lr < 1e-10:
+            		print('Passo muito pequeno')
+            		break
+            	count = count + 1
+ 
+
+class LM_cond (Optimizer):
+    def __init__(self) -> None:
+        self.alpha = 1e4
+
+    def step(self, net: NeuralNet) -> None:
+
+        for param, grad, jac in net.params_and_grads_v3():
+
+            predicted = net.forward(net.curr_batch.inputs)
+            loss_old = net.loss_f.loss(predicted, net.curr_batch.targets)
+
+            lamb = max( np.linalg.norm(grad), 1e-5)
+            JTJ = jac.T@jac
+            sh = grad.shape
+            d = np.linalg.solve(JTJ + lamb*np.eye(len(JTJ)), -grad.flatten())
+            d = d.reshape(sh)
+            # inner_p = np.inner(-grad.flatten(), d.flatten())
+            # print('produto interno: ', inner_p )
+
+            old_param = copy.deepcopy(param)
+
+            param += d
+
+            predicted = net.forward(net.curr_batch.inputs)
+            loss = net.loss_f.loss(predicted, net.curr_batch.targets)
+
+            while not loss <= loss_old - self.alpha*(np.linalg.norm(param - old_param))**2:
+
+                lamb = 2*lamb
+
+                d = np.linalg.solve(JTJ + lamb*np.eye(len(JTJ)), -grad.flatten())
+                d = d.reshape(sh)
+                param += d
                 predicted = net.forward(net.curr_batch.inputs)
                 loss = net.loss_f.loss(predicted, net.curr_batch.targets)
-                print(f'\nloss: {loss}\nloss_desejada: {loss_old - self.alpha*(np.linalg.norm(param - old_param))**2}')
 
+                # inner_p = np.inner(-grad.flatten(), d.flatten())
+                # print('produto interno: ', inner_p )
 
-
-    # def step(self, net: NeuralNet) -> None:
-    #     for param, grad in net.params_and_grads():
-
-    #         # predicted = net.forward(net.curr_batch.inputs)
-    #         # loss_old = net.loss_f.loss(predicted, net.curr_batch.targets)
-            
-    #         # old_param = copy.deepcopy(param)
-    #         param -= self.lr *grad
-    #         count = 0
-            
-
-    #         # predicted = net.forward(net.curr_batch.inputs)
-    #         # loss = net.loss_f.loss(predicted, net.curr_batch.targets)
-
-    #         #print(f'\nloss: {loss} \nloss_anterior: {loss_old}\ntermo subtraido:{self.alpha*(np.linalg.norm(param - old_param))**2}\nvalor_esperado: {loss_old - self.alpha*(np.linalg.norm(param - old_param))**2}')
-            
-    #         # while not loss <= loss_old - self.alpha*(np.linalg.norm(param - old_param))**2:
-    #         #     print('Não passou')
-    #         #     print(f'\nloss: {loss} \nloss_anterior: {loss_old}\ntermo subtraido:{self.alpha*(np.linalg.norm(param - old_param))**2}\nvalor_esperado: {loss_old - self.alpha*(np.linalg.norm(param - old_param))**2}')
-    #         #     self.lr = self.lr / 2.0
-    #         #     param = old_param - self.lr *grad
-
-    #         #     if count > 10:
-    #         #         break
-
-    #         #     count = count + 1
-    #         print('PASSEI')
-
-
-
-            
+                if lamb > 1e9:
+                    print('trapaça')
+                    break

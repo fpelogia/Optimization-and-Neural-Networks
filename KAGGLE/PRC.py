@@ -10,7 +10,7 @@ from sklearn.metrics import confusion_matrix, accuracy_score, classification_rep
 from sklearn.model_selection import train_test_split, cross_val_score, GridSearchCV
 from sklearn.preprocessing import StandardScaler
 
-data = pd.read_csv("creditcard.csv")
+data = pd.read_csv("../../Datasets/creditcard.csv")
 
 pd.set_option("display.float", "{:.2f}".format)
 

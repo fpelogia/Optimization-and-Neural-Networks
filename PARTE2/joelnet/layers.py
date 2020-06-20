@@ -31,12 +31,14 @@ class Linear(Layer):
     """
     computes output = inputs @ w + b
     """
-    def __init__(self,input_size: int, output_size: int) -> None:
+    def __init__(self,input_size: int, output_size: int, weights: Tensor, biases: Tensor) -> None:
         # inputs will be (batch_size, input_size)
         # outputs will be (batch_size, output_size)
         super().__init__()
-        self.params["w"] = np.random.randn(input_size, output_size)
-        self.params["b"] = np.random.randn(output_size)
+        # self.params["w"] = np.random.randn(input_size, output_size)
+        # self.params["b"] = np.random.randn(output_size)
+        self.params["w"] = weights
+        self.params["b"] = biases
         self.params_prev["w"] = np.zeros((input_size, output_size))
         self.params_prev["b"] = np.zeros(output_size)
         self.grads_prev["w"] = np.zeros((input_size, output_size))

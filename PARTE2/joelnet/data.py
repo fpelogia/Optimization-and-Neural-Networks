@@ -3,6 +3,7 @@ We'll feed inputs into our network in batches.
 So here are some tools for iterating over data in batches.
 """
 from typing import Iterator, NamedTuple
+from sklearn.utils import shuffle
 
 import numpy as np
 
@@ -25,7 +26,8 @@ class BatchIterator(DataIterator):
         starts = np.arange(0, len(inputs), self.batch_size)
 
         if self.shuffle:
-            np.random.shuffle(starts)
+            inputs, targets = shuffle(inputs, targets, random_state=0)
+            #np.random.shuffle(starts)
 
         #print(f'STARTS: {starts}')
 

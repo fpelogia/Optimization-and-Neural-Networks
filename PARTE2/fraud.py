@@ -7,7 +7,7 @@ from joelnet.nn import NeuralNet
 from joelnet.loss import MSE, Log_loss
 from joelnet.layers import Linear, Tanh, Sigmoid, reLu
 from joelnet.data import BatchIterator
-from joelnet.optim import SGD, RMSProp, SGD_Nesterov, Adam, Barzilai, LM
+from joelnet.optim import SGD, RMSProp, SGD_Nesterov, Adam, Barzilai, LM, LM_cond
 from sklearn.model_selection import train_test_split, cross_val_score, GridSearchCV
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import precision_recall_curve, auc, precision_score
@@ -36,13 +36,13 @@ targets = np.array(y_train)
 
 
 net = NeuralNet([
-    Linear(input_size=30, output_size=24),
+    Linear(input_size=30, output_size=100),
     Tanh(),
-    Linear(input_size=24, output_size=30),
+    Linear(input_size=100, output_size=100),
     Tanh(),
-    Linear(input_size=30, output_size=35),
+    Linear(input_size=100, output_size=100),
     Tanh(),
-    Linear(input_size=35, output_size=1), 
+    Linear(input_size=100, output_size=1), 
     Sigmoid()
 ])
 # net = NeuralNet([
@@ -56,7 +56,7 @@ net = NeuralNet([
 n_epochs = 20
 #loss_list = train(net, inputs,targets, loss = MSE() ,optimizer = Adam(lr = 1e-2, gamma1 = 0.3, gamma2 = 0.3), iterator = BatchIterator(1024), num_epochs = n_epochs)
 try:
-	loss_list = train(net, inputs,targets, loss = MSE() ,optimizer = Adam(lr = 1e-2, gamma1 = 0.3, gamma2 = 0.3), iterator = BatchIterator(1024), num_epochs = n_epochs)
+	loss_list = train(net, inputs,targets, loss = MSE() ,optimizer = Adam(lr = 1e-2, gamma1 = 0.3, gamma2 = 0.3), iterator = BatchIterator(150), num_epochs = n_epochs)
 except np.linalg.LinAlgError as err:
 	print('Interrompido por matriz singular')
 

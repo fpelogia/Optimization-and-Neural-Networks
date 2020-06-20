@@ -36,6 +36,7 @@ def train(net: NeuralNet,
             optimizer.step(net)
             n_iter = n_iter + 1
 
+        # () / iterator.batch_size
         print(epoch, epoch_loss)
         loss_list.append(epoch_loss)
 
