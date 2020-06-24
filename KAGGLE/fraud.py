@@ -49,7 +49,7 @@ model = keras.models.Sequential([
 
 
 model.compile(optimizer = "adam", loss='mean_squared_error', metrics=['accuracy'])
-model.fit(X_train, y_train, validation_split = 0.0, batch_size=50, epochs=20)
+model.fit(X_train, y_train, validation_split = 0.0, batch_size=150, epochs=20)
 
 
 #PARA SALVAR OS MODELOS E DEPOIS PLOTAR A PRC
@@ -74,10 +74,10 @@ with open("Evaluation/Adam.txt", "w") as out_file:
 	out_file.write(out_str)
 
 
-# plt.plot(recall, precision, marker = ".", markersize = 5, label = "HUSDHUAS" + f"     AUC: {auc_val:.3f} " )
-# plt.title(f'Precision-Recall Curve')
-# plt.xlabel('Recall')
-# plt.ylabel('Precision')
-# plt.legend(loc='lower left')
+plt.plot(recall, precision, marker = ".", markersize = 5, label = "HUSDHUAS" + f"     AUC: {auc_val:.3f} " )
+plt.title(f'Precision-Recall Curve')
+plt.xlabel('Recall')
+plt.ylabel('Precision')
+plt.legend(loc='lower left')
 
-# plt.show()
+plt.show()

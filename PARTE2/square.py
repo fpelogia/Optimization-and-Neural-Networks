@@ -44,10 +44,10 @@ net = NeuralNet([
 
 
 
-n_epochs = 100
+n_epochs = 200
 
 #loss_list = train(net, inputs,targets, optimizer = Adam(lr = 1e-2, gamma1 = 0.3, gamma2 = 0.3),iterator = BatchIterator(batch_size = 5), num_epochs = 1000)
-loss_list = train(net, inputs,targets, loss = MSE() ,optimizer = Barzilai(), iterator = BatchIterator(batch_size =  5), num_epochs = n_epochs)
+loss_list = train(net, inputs,targets, loss = MSE() ,optimizer = LM_cond(), iterator = BatchIterator(batch_size =  5), num_epochs = n_epochs)
 
 
 

@@ -198,11 +198,13 @@ class GD_cond(Optimizer):
             		print('Passo muito pequeno')
             		break
             	count = count + 1
+
+
  
 
 class LM_cond (Optimizer):
     def __init__(self) -> None:
-        self.alpha = 1e4
+        self.alpha = 1e2
 
     def step(self, net: NeuralNet) -> None:
 
@@ -211,7 +213,7 @@ class LM_cond (Optimizer):
             predicted = net.forward(net.curr_batch.inputs)
             loss_old = net.loss_f.loss(predicted, net.curr_batch.targets)
 
-            lamb = max( np.linalg.norm(grad), 1e-5)
+            lamb = min(max( np.linalg.norm(grad), 1e-5), 1e5)
             JTJ = jac.T@jac
             sh = grad.shape
             d = np.linalg.solve(JTJ + lamb*np.eye(len(JTJ)), -grad.flatten())
@@ -226,9 +228,12 @@ class LM_cond (Optimizer):
             predicted = net.forward(net.curr_batch.inputs)
             loss = net.loss_f.loss(predicted, net.curr_batch.targets)
 
+
+            loop_count = 0
+
             while not loss <= loss_old - self.alpha*(np.linalg.norm(param - old_param))**2:
 
-                lamb = 2*lamb
+                lamb = 10*lamb
 
                 d = np.linalg.solve(JTJ + lamb*np.eye(len(JTJ)), -grad.flatten())
                 d = d.reshape(sh)
@@ -239,6 +244,9 @@ class LM_cond (Optimizer):
                 # inner_p = np.inner(-grad.flatten(), d.flatten())
                 # print('produto interno: ', inner_p )
 
-                if lamb > 1e9:
-                    print('trapaça')
+                loop_count = loop_count + 1
+                #print(f'loop : {loop_count}')
+
+                if lamb > 1e8:
+                    #print('trapaça')
                     break
