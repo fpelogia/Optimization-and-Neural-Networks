@@ -1,8 +1,5 @@
 Treinando com 20 epochs
 Confusion matrix: 
-[[85295    12]
- [   27   109]]
-AUPRC: 0.8425923947952577
-
-
-
+[[85298     9]
+ [   35   101]]
+AUPRC: 0.8432383797436905

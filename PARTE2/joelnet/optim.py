@@ -1,8 +1,3 @@
-"""
-We use an optimizer to adjust the parameters
-of our network based on the gradients computed
-during backpropagation
-"""
 from joelnet.nn import NeuralNet
 from joelnet.jacobian import grad_flatten
 import numpy as np

@@ -146,7 +146,3 @@ class Sigmoid(Activation):
 class reLu(Activation):
     def __init__(self):
         super().__init__(relu, relu_prime)
-
-# for x, y in zip(inputs, targets):
-# #     predicted = net.forward(x)
-# #     print(predicted, y)

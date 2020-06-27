@@ -10,12 +10,12 @@
 \headcommand {\beamer@framepages {5}{5}}
 \headcommand {\slideentry {0}{0}{6}{6/6}{}{0}}
 \headcommand {\beamer@framepages {6}{6}}
-\headcommand {\slideentry {0}{0}{7}{7/7}{}{0}}
+\headcommand {\beamer@subsectionpages {1}{6}}
+\headcommand {\beamer@subsectionentry {0}{0}{1}{7}{Altera\c c\~oes e adi\c c\~oes no m\'odulo joelnet}}
+\headcommand {\slideentry {0}{1}{1}{7/7}{Altera\c c\~oes e adi\c c\~oes no m\'odulo joelnet}{0}}
 \headcommand {\beamer@framepages {7}{7}}
-\headcommand {\slideentry {0}{0}{8}{8/8}{}{0}}
-\headcommand {\beamer@framepages {8}{8}}
 \headcommand {\beamer@partpages {1}{8}}
-\headcommand {\beamer@subsectionpages {1}{8}}
+\headcommand {\beamer@subsectionpages {7}{8}}
 \headcommand {\beamer@sectionpages {1}{8}}
 \headcommand {\beamer@documentpages {8}}
-\headcommand {\gdef \inserttotalframenumber {8}}
+\headcommand {\gdef \inserttotalframenumber {7}}

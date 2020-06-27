@@ -20,8 +20,6 @@ def train(net: NeuralNet,
     loss_list = []
     for epoch in range(num_epochs):
         n_iter = 0
-        progr = 0
-        count = 0
         epoch_loss = 0.0
         print(f'================   EPOCH NUMBER {epoch + 1}   ================')
         for batch in iterator(inputs, targets):
@@ -35,11 +33,7 @@ def train(net: NeuralNet,
             grad = loss.grad(predicted, batch.targets)
             net.backward(grad)
             optimizer.step(net)
-            #print(f'PROGRESSO: {count} / 2671 | {100*progr/32}%')
-            if n_iter%32 == 0:
-              count = count + 1
-              progr = 0
-            progr = progr + 1
+
             n_iter = n_iter + 1
 
         # () / iterator.batch_size

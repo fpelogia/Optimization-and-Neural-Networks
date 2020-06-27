@@ -74,7 +74,7 @@ with open("Evaluation/Adam.txt", "w") as out_file:
 	out_file.write(out_str)
 
 
-plt.plot(recall, precision, marker = ".", markersize = 5, label = "HUSDHUAS" + f"     AUC: {auc_val:.3f} " )
+plt.plot(recall, precision, marker = ".", markersize = 5, label = f"AUC: {auc_val:.3f} " )
 plt.title(f'Precision-Recall Curve')
 plt.xlabel('Recall')
 plt.ylabel('Precision')

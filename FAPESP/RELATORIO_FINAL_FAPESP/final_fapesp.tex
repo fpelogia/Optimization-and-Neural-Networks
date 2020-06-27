@@ -1,5 +1,5 @@
-\documentclass[a4paper,12pt]{article}
-
+%\documentclass[a4paper,12pt]{article}
+\documentclass[11pt]{article}
 \usepackage{graphicx}
 \usepackage{amsmath,amsfonts,amsthm,amstext,amssymb}
 \usepackage[brazil]{babel}
@@ -10,11 +10,14 @@
 \usepackage{csquotes}
 \usepackage[backend = bibtex,style=numeric-comp,sorting=nyt,date=year,isbn=false,maxnames=10]{biblatex}
 \addbibresource{bibliografianova.bib}
-\usepackage[a4paper,top=2cm,bottom=2cm,left=1cm,right=1cm]{geometry}
-\usepackage{setspace} \onehalfspacing
+%\usepackage[a4paper,top=2cm,bottom=2cm,left=1cm,right=1cm]{geometry}
+\usepackage[a4paper, total={6in, 9in}]{geometry}
+%\usepackage{setspace} \onehalfspacing
 \usepackage{lastpage}
 \usepackage{float}
 \usepackage{verbatim}
+\usepackage{listings}
+\usepackage{xcolor}
 
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\N}{\mathbb{N}}
@@ -30,8 +33,16 @@
 \usepackage{multirow}
 \usepackage[normalem]{ulem}
 \useunder{\uline}{\ul}{}
-\usepackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
+%\usepackage{indentfirst}	
 
+
+
+\lstset { %
+    language=C,
+    backgroundcolor=\color{black!3}, % set backgroundcolor
+    keywordstyle=\color{black}\bfseries,
+    basicstyle=\footnotesize,% basic font setting
+}
 
 
 
@@ -68,7 +79,7 @@
  
        Departamento de Ciência e Tecnologia\\
        Universidade Federal de São Paulo\\
-       Abril de 2020
+       Julho de 2020
        %-- de -------- de 2020
  
    \end{center}
@@ -87,48 +98,104 @@ do Kaggle.
 \section*{Resumo das realizações do período}
 Este relatório aborda as realizações do período de 10/02/2020 a 31/08/2020. Neste intervalo de tempo, as seguintes atividades foram concluídas:
 
-\begin{comment}
-A primeira tarefa a ser realiazada no próximo período é o estudo dos artigos \cite{fraudeItalia2} e \cite{fraudeItalia1}, que estava previsto para acontecer no primeiro semestre de atividades, porém foi atrasado pelo deslocamento da data de inicio do projeto em 1 mês.\\
-
-Após isso, seguimos com o planejamento inicial, que consiste em:
-\end{comment}
 \begin{itemize}
-
+\item Estudo dos artigos \cite{fraudeItalia1} e \cite{fraudeItalia2}
 \item Experimentar a aplicação dos algoritmos implementados em Python, sem utilização de bibliotecas prontas de \textit{machine learning}, à base de dados Credit Card Fraud Detection.
 
 \item Estudo do método de Levenberg–Marquardt, com base em \cite{TCCKleber}.
 \item Estudo teórico de \cite{bmLS}. 
-\item Testes numéricos associados a versões estocásticas presentes em \cite{bmLS}.
+\item Testes numéricos associados a \cite{bmLS}.
 \item Aplicações de técnicas de \cite{bmLS} no problema de interesse.
 \end{itemize}
 
+
+Como planejávamos, foi submetido um resumo e um \textbf{vídeo-poster} para apresentação no Congresso Acadêmico UNIFESP 2020, que ocorreu virtualmente, dos dias 13 a 17 de julho.
+
+Além disso, participamos do desenvolvimento da \textit{Ferramenta de apoio ao planejamento de salas de aula pós pandemia de Covid-19}, que é um site com objetivo de otimizar as posições das carteiras nas salas de aulas de acordo com as medidas de distanciamento propostas pelas autoridades sanitárias. Esse projeto foi desenvolvido com pesquisadores da Instituições Unifesp, UEM e IFSP. Assim, houve contato com técnicas de empacotamento, otimização com restrições e a utilização do software ALGENCAN, do projeto TANGO\supercite{TANGO}.
+\section{Estudo dos artigos \cite{fraudeItalia1} e \cite{fraudeItalia2}}
+BAIXEI OS 2 ARTIGOS DIA 26/06 E ESTOU DANDO UMA OLHADA NELES. EM BREVE ESCREVO AQUI.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed diam vitae quam aliquam facilisis. In hac habitasse platea dictumst. Nam ac ligula cursus odio elementum tempor a non neque. Ut ullamcorper porttitor felis quis dictum. Aenean eu metus eu quam imperdiet vulputate. Phasellus tincidunt sit amet mauris a fringilla. Quisque dapibus risus eu luctus molestie. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed diam vitae quam aliquam facilisis. In hac habitasse platea dictumst. Nam ac ligula cursus odio elementum tempor a non neque. 
+
+
 \newpage
-\section*{Aplicação dos algoritmos implementados ao problema de deteção de fraudes}
+\section{Aplicação dos algoritmos implementados ao problema de deteção de fraudes}
+
+A forma como os métodos estavam implementados não era adequada para processar os dados do dataset do Kaggle, além de não possibilitar a alteração da estrutura da rede de forma dinâmica. Procurávamos, então, algum framework que nos permitisse montar uma rede de forma fácil e receber o gradiente em relação aos parâmetros ajustáveis para os refinarmos manualmente de diferentes maneiras. Um exemplo de interface para criação dinâmica de rede é a da bilioteca Keras\supercite{KERAS} e está apresentada a seguir.\\
+\begin{lstlisting}[language=Python, caption=Interface do Keras]
+model = keras.models.Sequential([
+    keras.layers.Dense(units=16, input_dim=30, activation="relu"),
+    keras.layers.Dense(units=24, activation="relu"),  
+    keras.layers.Dropout(0.5),  
+    keras.layers.Dense(20, activation="relu"),  
+    keras.layers.Dense(24, activation="relu"),  
+    keras.layers.Dense(1, activation="sigmoid"),  
+])
+\end{lstlisting}
+
+A solução foi alterar as implementações para o paradigma de orientação a objeto, construindo uma pequena biblioteca de \textit{Deep Learning} com base na \textit{joelnet}\supercite{joelnet}, de Joel Grus.
+
+
+\subsection*{Módulos do repositório joelnet}
+A biblioteca de Joel era composta, originalmente de 7 módulos.
 \begin{itemize}
-\item A forma como os métodos estavam implementados não estava adequada para processar os dados do dataset do Kaggle, além de não possibilitar a alteração da estrutura da rede de forma dinâmica.
-\item A solução foi alterar as implementações para o paradigma de orientação a objeto, construindo uma pequena biblioteca de \textit{Deep Learning} com base na \textit{joelnet}, de Joel Grus.
-\item NOTA PARA FRED DO FUTURO: Transferir da apresentação de slides para este relatório a explicação sobre os módulos do \textit{joelnet} e as alterações que eu fiz.
+\item O arquivo \textbf{data.py} controla a separação dos dados em "mini lotes" (\textit{batches}).
 
-\item *Falar sobre os bias, que agora estão presentes.
-\item Após a reformulação das implementações, foi possível testar a capacidade dos algoritmos de detectar as fraudes do banco de dados Credit Card Fraud Detection.
-\item O método Adam foi o que se destacou para essa tarefa. Obteve o valor de AUCPRC próximo de 0.77 na maioria dos testes .
-\item *Apresentar comparação dos resultados do Adam do Keras e do implementado sob as mesmas condições de treino e teste.   
+\item O arquivo \textbf{layers.py} define o comportamento genérico de uma camada e também as diferentes funções de ativação possíveis.
 
+\item O arquivo \textbf{loss.py} define as possíveis formulações da função Erro da rede. Apenas a \textit{Mean Squared Error} está implementada.
+
+\item O arquivo \textbf{nn.py} define a Classe \textit{NeuralNetwork}, que é a mais importante da biblioteca. Essa Classe é a portadora dos métodos responsáveis pelo Feed-Forward e pelo Backpropagation.
+
+\item O arquivo \textbf{optim.py} define os métodos de otimização que poderão ser utilizados par ao treinamento das redes. Originalmente possuía apenas o SGD (Método do Gradiente Estocástico).
+\item  O arquivo \textbf{train.py} define a função \textit{train}, que é responsável pelo treinamento da rede neural.
+
+\item O arquivo \textbf{tensor.py} define o tipo abstrato \textit{Tensor}, que, para nossa implementação simples, nada mais é do que o \textit{ndarray} da biblioteca Numpy.
 \end{itemize}
-\section*{Estudo do Método de Levenberg–Marquardt}
+
+\subsection*{Alterações e adições no módulo joelnet}
+Para utilizarmos o repositório apresentado, foram necessárias algumas modificações e a adição de algumas funcionalidades.
+\begin{itemize}
+\item Em \textbf{layers.py} foram adicionadas as funções de ativação Sigmoid e reLu, além de suas primeiras derivadas.
+$$Sig(x) = \frac{1}{1 + e^{-x}} ,\qquad Sig'(x) = Sig(x)\cdot (1 - Sig(x)) $$
+
+$$reLu(x) = \frac{x + \sqrt{x^2 + \epsilon}}{2} ,\qquad reLu'(x) = \frac{1}{2}\left(\frac{x}{\sqrt{x^2 + \epsilon}} + 1.0\right)$$
+
+\item Em \textbf{data.py} foi alterada a forma de sorteio de batches. Agora, para cada \textit{epoch}, embaralhamos os dados e retiramos amostras adjuntas do tamanho do \textit{batch\_size}. 
+\item Em \textbf{nn.py}, o método chamado \textit{params\_and\_grads} ganhou 3 novas versões, para conseguir retornar a matriz Jacobiana e também valores antigos de parâmetro e de gradiente, pois são necessários para alguns dos métodos de otimização implementados.
+\item Em \textbf{train.py}, a função \textit{train} agora retorna uma lista chamada \textit{loss\_list}, que contém os valores do erro de cada \textit{epoch}, definido como a soma dos erros de cada batch avaliado. Essa lista pode ser utilizada para construir um gráfico do erro ao longo das epochs.
+\item Criado um módulo \textbf{jacobian.py} com 2 funções auxiliares para cálculo da matriz jacobiana.
+\item Em \textbf{optim.py}, temos agora os seguintes métodos de otimização:
+\begin{itemize}
+	\item Método do Gradiente Estocástico - SGD
+	\item RMSProp
+	\item SGD com momento de Nesterov
+	\item Adam
+	\item Método de Barzilai–Borwein
+	\item Levenberg Marquardt
+	\item Levenberg Marquardt com condição de busca linear
+\end{itemize}
+
+Nas implementações atuais, foram adicionados novos tipos de parâmetros. Agora, cada camada, após receber o conteúdo da anterior multiplicado pelos pesos, soma um novo parâmetro, conhecido por \textit{bias} (viés), antes de aplicar a função de ativação. Sendo assim, cada camada $L_i$ tem valor $f_i(L_{i-1} \cdot W_i + b_i)$. Por consequência, o método \textit{backpropagation} teve que ser atualizado, agora fazendo a regra da cadeia também para calcular as derivadas parciais em relação a esses novos termos.
+
+
+\subsection*{Testando as novas implementações}
+Para testar as novas implementações dos métodos, cada um deles foi avaliado em 2 cenários.
+\subsubsection*{Problema 1: Regressão de $y = x^2$}
+O problema é uma regressão simples da função $y = x^2$. O conjunto de treinamento é composto pelos números de 1 a 20 e o resultado esperado é composto pelo quadrado de cada um desses números. Por ser um problema mais rápido de se resolver, foi importante para pequenos testes e ajustes durante a implementação.
+
+\subsection*{Problema 2: Deteção de Fraudes na base de dados do Kaggle}
+A base de dados \textit{Credit Card Fraud Detection} possui  284,807 transações e 492 fraudes. Foi definida uma divisão de 70\% dos dados para treinamento e 30\% para teste. Para as comparações entre os métodos, foi fixada uma arquitetura de rede e a mesma inicialização de seus parâmetros.
+
+
+
+\end{itemize}   
+
+
+\section{Estudo do Método de Levenberg–Marquardt}
 Primeiramente foi feito um estudo sobre alguns métodos clássicos de segunda ordem.
 \subsection*{Método de Newton}
-*falar sobre versão para zero de funções.
-
-A proposta parecida com a do método do gradiente mas com passo proporcional à inversa da matriz hessiana: 
-$$x_{k+1} = x_{k} + d_k ,$$
-onde $$\nabla ^2 f(x)  \cdot d_k =  -\nabla f(x^k)  .$$
-*talvez colocar teorema de convergência
-
-*explicar depois sobre motivação
-
-Como a matriz Hessiana possui formato $n \times n$, onde $n$ é o número de variáveis, seu cálculo demonstra-se custoso. O método é mais caro ainda, pois além de calcular essa matriz, resolve um sistema com ela.
-* pesquisar melhor sobre porque Hessianas são caras (argumentos melhores, com \textit{Big O notation}... no slide diz $O(n^3)$ em métodos exatos)
+É um dos mais clássicos métodos de segunda ordem. Ele calcula a matriz Hessiana da função erro, resolve o sistema  $$\nabla ^2 f(x^k)d = -\nabla f(x^k),$$ e utiliza a direção encontrada para dar o passo $x^{k + 1} = x^k + {\color {red}t}  d$.\\
+O método com $t = 1$ apresenta convergência local quadrática \supercite{newtonJM}, porém só consegue convergência global procurando um $t$ adequado com uma busca linear, como a de Armijo \supercite{armijo1966} $$f(x^k+{\color {red}t}d^k) \leq f(x^k)+\alpha {\color {red}t} \nabla f(x^k)^T d^k.$$\\Como a matriz Hessiana possui formato $n \times n$, onde $n$ é o número de variáveis, seu cálculo demonstra-se custoso. O método é mais caro ainda, pois além de calcular essa matriz, resolve um sistema com ela e com o gradiente, resultando em algo da ordem de $O(n^3)$.
 
 \subsection*{Quasi-Newton: Método da Secante, Barzilai-Borwein e Gauss-Newton}
 A ideia principal dos métodos Quasi-Newton é herdar a eficácia do Método de Newton utilizando alternativas ou aproximações mais baratas da Hessiana.
@@ -158,10 +225,99 @@ Assim, a direção de Gauss-Newton é a direção $d_k$ que satisfaz $$(J_F(x)^T
 Segundo \cite{artigoLevenberg}, o método é bem definido para quando $J_F(x)^T J_F(x)$ é invertível e, portanto, definida positiva. 
 
 \subsubsection*{Método de Levenberg-Marquardt}
-Por fim, o Método de Levenberg-Marquardt ...
+Por fim, o Método de Levenberg-Marquardt é uma mistura do Método de Gauss-Newton com um passo de Barzilai-Borwein. A dreção é calculada da seguinte forma
 $$(J_F(x)^T J_F(x) + \lambda I) d_k = - \nabla f(x^k),$$
 onde $\lambda$ pode ser definido de diversas maneiras. Para a implementação realizada, foi considerado $$\lambda = ||\nabla f(x^k)||.$$ 
-Note que pequenos valores de $\lambda$ deixam o método mais parecido com o Método de Newton, enquanto valores altos de $\lambda$ aproximam o método do Método do Gradiente.
+Note que pequenos valores de $\lambda$ deixam o método mais parecido com o Método de Gauss-Newton, enquanto valores altos de $\lambda$ aproximam a um passo de Barzilai-Borwein.
+
+\section{Estudo teórico de \cite{bmLS}}
+O artigo, definindo restrições baratas $\underline{g}(x) = 0$ e $\underline{h}(x) <= 0$ e restrições custosas $g(x) = 0$ e $h(x) <= 0$, propõe a minimização de uma função 
+$$\phi (x) = \frac{1}{2}(||h(x)||^2 + ||g(x)_{+}||^2),$$
+através da minimização de um modelo de ordem \textbf{p} regularizado, como segue:
+$$min \quad M_{x^{k}}(x) + \sigma _{k}||x - x^{k}||^{p + 1} \quad sujeito\quad a \quad \underline{h}(x) = 0 \quad e \quad \underline{g}(x) <= 0.$$
+
+Entretanto, desconsiderando as restrições, podemos escrever:
+$$\phi (x) = \frac{1}{2}(||F(x)||^2),$$ que é uma soma de quadrados, como em nosso problema de interesse. Além disso, se considerarmos o caso \textbf{p = 1}, podemos pensar em $$M_{x^k} = \nabla f(x^k)^T (x - x^k) + \frac{1}{2}(x - x^k)^T B_k (x - x^k),$$ o que pode levar a
+$$min \quad \nabla \phi(x^k)^T (x - x^k) + \frac{1}{2}(x - x^k)^T B_k (x - x^k) + \frac{\sigma}{2} ||x - x^k||^2.$$
+
+A solução dessa formulação resumida pode ser feita igualando o gradiente de toda a expressão a zero, o que resulta em 
+
+$$\nabla \phi(x^k) + B_k (x - x^k) + \sigma(x - x^k) = 0, $$ 
+o que implica em 
+$$x = x_k - (B_k + \sigma I)^{-1} \nabla \phi(x^k), $$ que é o próprio método de Levenberg Marquardt, se definirmos a matriz $B_k$ como $J_{F}(x)^T J_{F}(x)$.\\ 
+
+Assim, o artigo propõe uma versão estocástica do método de Levenberg Marquardt em que é imposta uma condição de descida
+$$\phi(x) <= \phi(x^k) - \alpha ||x - x^k||^2$$ e realizada uma busca por um valor de $\lambda$ que a satisfaça. Segue um pseudo-código do processo:
+
+\begin{lstlisting}[language=C, caption=Levenberg Marquardt com busca linear]
+x, f = LevenbergMarquardt(x[k], lambda);
+while(f > f[k] - alpha*(norm(x - x[k]))^2 ){
+	lambda = 2*lambda;
+}
+x[k + 1] = x;
+\end{lstlisting}
+
+Além disso, o artigo demonstra\cite{bmLS} que em alguns casos a solução é atingida com $log (\varepsilon)$ avaliações de função.
+\newpage
+\section{Resultados e Discussões}
+\subsection*{Comparação dos métodos no Problema 1}
+Para as comparações referentes ao Problema 1, foi fixada uma arquitetura de rede \textbf{1-2-1}, com ativação \textbf{reLu}, \textbf{batch\_size} $ = 2$ e inicialização fixa dos parâmetros como 
+$$W_{L1\rightarrow L2} = \begin{pmatrix} 1 \\ 2\end{pmatrix}, \qquad b_{L1\rightarrow L2} = \begin{pmatrix} 0.5 \\ 0.5\end{pmatrix}\qquad W_{L2\rightarrow L3} = \begin{pmatrix} 3 & 4\end{pmatrix}, \qquad b_{L2\rightarrow L3} = \begin{pmatrix} 0.5 \\ 0.5\end{pmatrix}.$$ 
+A Figura \ref{REG} apresenta o resultado das predições de cada método, juntamente com o valor da função erro na ultima \textit{epoch}.
+
+\begin{figure}[H]
+\center
+\includegraphics[scale=0.7]{Figuras/REG.png}
+\caption{Resultados da aplicação dos métodos ao Problema 1 (Regressão de  $y = x^2$). Fonte: Autor} 
+\label{REG}
+\end{figure}
+
+Note que o melhor desempenho foi do \textbf{RMSProp}, método com passo adaptativo. Pode-se perceber que os 2 métodos quasi-Newton obtiveram os piores resultados no teste.
+
+
+\subsection*{Comparação dos métodos no Problema 2}
+Para o problema 2, foi fixada uma arquitetura de rede \textbf{30-24-30-35-1}, com 3 camadas ocultas. A inicialização dos pesos foi aleatória, porém a mesma para todos os métodos. O tamanho do lote (\textbf{batch\_size}) escolhido foi de 150 dados.
+A Figura \ref{FRAUD} apresenta as curvas de Precision-Recall de cada um dos métodos, além do valor da área debaixo delas, indicado por \textit{AUC} na legenda.
+
+\begin{figure}[H]
+\center
+\includegraphics[scale=0.8]{Figuras/FRAUD.png}
+\caption{Comparação das curvas de Precision-Recall dos métodos aplicados ao Problema 2. Fonte: Autor} 
+\label{FRAUD}
+\end{figure}
+
+O método \textbf{Adam} foi o que mais se destacou, obtendo o maior valor de AUPRC, e os métodos \textbf{SGD\_Nesterov} e \textbf{Barzilai-Borwein} tiveram um desempenho muito abaixo dos outros. Talvez com outras inicializações de parâmetros esses métodos poderiam apresentar melhorias.
+As curvas de Precision-Recall são montadas variando os \textit{tresholds} de arredondamento e registrando os valores de Precision e de Recall. Foram registradas, também, as \textbf{matrizes de confusão} dos métodos para o \textit{treshold} de $0.5$. Essas matrizes estão apresentadas na Figura \ref{CONFM}.
+
+
+\begin{figure}[H]
+\center
+\includegraphics[scale=0.5]{Figuras/CONFMAT.png}
+\caption{Comparação das matrizes de confusão dos métodos aplicados ao Problema 2. Fonte: Autor} 
+\label{CONFM}
+\end{figure}
+
+******VERIFICAR POR QUE A SOMA NÃO ESTÁ BATENDO.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed diam vitae quam aliquam facilisis. In hac habitasse platea dictumst. Nam ac ligula cursus odio elementum tempor a non neque. Ut ullamcorper porttitor felis quis dictum. Aenean eu metus eu quam imperdiet vulputate. Phasellus tincidunt sit amet mauris a fringilla. Quisque dapibus risus eu luctus molestie. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed diam vitae quam aliquam facilisis. In hac habitasse platea dictumst. Nam ac ligula cursus odio elementum tempor a non neque. 
+
+
+
+\subsection*{Comparação com o Keras}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed diam vitae quam aliquam facilisis. In hac habitasse platea dictumst. Nam ac ligula cursus odio elementum tempor a non neque. Ut ullamcorper porttitor felis quis dictum. Aenean eu metus eu quam imperdiet vulputate. Phasellus tincidunt sit amet mauris a fringilla. Quisque dapibus risus eu luctus molestie. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed diam vitae quam aliquam facilisis. In hac habitasse platea dictumst. Nam ac ligula cursus odio elementum tempor a non neque. 
+
+\begin{figure}[H]
+\center
+\includegraphics[scale=0.5]{Figuras/ADAM_VS_KERAS.png}
+\caption{Comparação da implementação do Adam com o Adam da biblioteca Keras. Fonte: Autor} 
+\label{CONFM}
+\end{figure}
+
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed diam vitae quam aliquam facilisis. In hac habitasse platea dictumst. Nam ac ligula cursus odio elementum tempor a non neque. Ut ullamcorper porttitor felis quis dictum. Aenean eu metus eu quam imperdiet vulputate. Phasellus tincidunt sit amet mauris a fringilla. Quisque dapibus risus eu luctus molestie. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed diam vitae quam aliquam facilisis. In hac habitasse platea dictumst. Nam ac ligula cursus odio elementum tempor a non neque. 
+\section{Conclusão}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed diam vitae quam aliquam facilisis. In hac habitasse platea dictumst. Nam ac ligula cursus odio elementum tempor a non neque. Ut ullamcorper porttitor felis quis dictum. Aenean eu metus eu quam imperdiet vulputate. Phasellus tincidunt sit amet mauris a fringilla. Quisque dapibus risus eu luctus molestie. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed diam vitae quam aliquam facilisis. In hac habitasse platea dictumst. Nam ac ligula cursus odio elementum tempor a non neque. 
+
+
 
 
 
