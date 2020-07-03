@@ -68,45 +68,45 @@ Too many commas in name 1 of "Bueno, L. F., Mart{\'i}nez, J. M. and E. G. Birgin
 while executing---line 2805 of file biblatex.bst
 Too many commas in name 1 of "Bueno, L. F., Mart{\'i}nez, J. M. and E. G. Birgin" for entry bmLS
 while executing---line 2805 of file biblatex.bst
-You've used 11 entries,
+You've used 12 entries,
             6365 wiz_defined-function locations,
-            1254 strings with 10721 characters,
-and the built_in function-call counts, 77022 in all, are:
-= -- 5679
-> -- 1550
-< -- 471
-+ -- 1898
-- -- 635
-* -- 5813
-:= -- 8297
+            1263 strings with 10902 characters,
+and the built_in function-call counts, 82234 in all, are:
+= -- 5991
+> -- 1671
+< -- 503
++ -- 2020
+- -- 683
+* -- 6206
+:= -- 8820
 add.period$ -- 0
-call.type$ -- 11
-change.case$ -- 229
-chr.to.int$ -- 46
-cite$ -- 20
-duplicate$ -- 7251
-empty$ -- 6716
-format.name$ -- 828
-if$ -- 16168
+call.type$ -- 12
+change.case$ -- 239
+chr.to.int$ -- 52
+cite$ -- 22
+duplicate$ -- 7837
+empty$ -- 7198
+format.name$ -- 895
+if$ -- 17248
 int.to.chr$ -- 0
-int.to.str$ -- 25
+int.to.str$ -- 27
 missing$ -- 0
-newline$ -- 351
-num.names$ -- 527
-pop$ -- 3643
+newline$ -- 383
+num.names$ -- 568
+pop$ -- 3981
 preamble$ -- 1
-purify$ -- 303
+purify$ -- 318
 quote$ -- 0
-skip$ -- 2376
+skip$ -- 2557
 stack$ -- 0
-substring$ -- 10437
-swap$ -- 1640
-text.length$ -- 368
-text.prefix$ -- 10
+substring$ -- 10922
+swap$ -- 1796
+text.length$ -- 399
+text.prefix$ -- 11
 top$ -- 1
-type$ -- 362
+type$ -- 396
 warning$ -- 0
-while$ -- 1025
+while$ -- 1105
 width$ -- 0
-write$ -- 341
+write$ -- 372
 (There were 22 error messages)

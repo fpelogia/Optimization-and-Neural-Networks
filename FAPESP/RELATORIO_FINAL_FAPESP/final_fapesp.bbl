@@ -162,6 +162,39 @@
     \field{year}{2020}
   \endentry
 
+  \entry{AWIT}{article}{}
+    \name{author}{2}{}{%
+      {{hash=BM}{%
+         family={Buscema},
+         familyi={B\bibinitperiod},
+         given={Massimo},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=TW}{%
+         family={Tastle},
+         familyi={T\bibinitperiod},
+         given={William},
+         giveni={W\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BMTW1}
+    \strng{fullhash}{BMTW1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \verb{doi}
+    \verb 10.4018/IJISSC.2015100104
+    \endverb
+    \field{pages}{52\bibrangedash 81}
+    \field{title}{Artificial Neural Network What-If Theory}
+    \field{volume}{6}
+    \field{journaltitle}{International Journal of Information Systems and
+  Social Change}
+    \field{month}{10}
+    \field{year}{2015}
+  \endentry
+
   \entry{joelnet}{misc}{}
     \name{author}{1}{}{%
       {{hash=GJ}{%

@@ -87,8 +87,8 @@
 
 \section*{Resumo do projeto}
  Neste projeto pretende-se estudar métodos de otimização, em especial algoritmos estocásticos,
-aplicados ao treinamento de redes neurais. Em um trabalho recente proposto por L. F. Bueno e
-J. M. Martínez, On the complexity of solving feasibility problems, 2018, foi apresentado um algoritmo
+aplicados ao treinamento de redes neurais. Em um trabalho\supercite{bmLS} recente proposto por E. G. Birgin, L. F. Bueno e
+J. M. Martínez, On the complexity of solving feasibility problems with regularized models , foi apresentado um algoritmo
 de primeira ordem com bons resultados de complexidade para problemas de quadrados mínimos.
 Um dos principais pontos da pesquisa deste projeto será desenvolver uma versão estocástica desse
 algoritmo. Serão analisados os desempenhos dos algoritmos estudados quando aplicados à detecção
@@ -99,7 +99,7 @@ do Kaggle.
 Este relatório aborda as realizações do período de 10/02/2020 a 31/08/2020. Neste intervalo de tempo, as seguintes atividades foram concluídas:
 
 \begin{itemize}
-\item Estudo dos artigos \cite{fraudeItalia1} e \cite{fraudeItalia2}
+\item Estudo dos artigos \cite{fraudeItalia1} e \cite{fraudeItalia2}.
 \item Experimentar a aplicação dos algoritmos implementados em Python, sem utilização de bibliotecas prontas de \textit{machine learning}, à base de dados Credit Card Fraud Detection.
 
 \item Estudo do método de Levenberg–Marquardt, com base em \cite{TCCKleber}.
@@ -108,19 +108,21 @@ Este relatório aborda as realizações do período de 10/02/2020 a 31/08/2020. 
 \item Aplicações de técnicas de \cite{bmLS} no problema de interesse.
 \end{itemize}
 
+\noindent
+Como planejávamos, foi submetido um resumo e um \textbf{vídeo-poster} para apresentação no Congresso Acadêmico UNIFESP 2020, que ocorreu virtualmente, dos dias 13 a 17 de julho.\\
 
-Como planejávamos, foi submetido um resumo e um \textbf{vídeo-poster} para apresentação no Congresso Acadêmico UNIFESP 2020, que ocorreu virtualmente, dos dias 13 a 17 de julho.
-
+\noindent
 Além disso, participamos do desenvolvimento da \textit{Ferramenta de apoio ao planejamento de salas de aula pós pandemia de Covid-19}, que é um site com objetivo de otimizar as posições das carteiras nas salas de aulas de acordo com as medidas de distanciamento propostas pelas autoridades sanitárias. Esse projeto foi desenvolvido com pesquisadores da Instituições Unifesp, UEM e IFSP. Assim, houve contato com técnicas de empacotamento, otimização com restrições e a utilização do software ALGENCAN, do projeto TANGO\supercite{TANGO}.
 \section{Estudo dos artigos \cite{fraudeItalia1} e \cite{fraudeItalia2}}
-BAIXEI OS 2 ARTIGOS DIA 26/06 E ESTOU DANDO UMA OLHADA NELES. EM BREVE ESCREVO AQUI.
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed diam vitae quam aliquam facilisis. In hac habitasse platea dictumst. Nam ac ligula cursus odio elementum tempor a non neque. Ut ullamcorper porttitor felis quis dictum. Aenean eu metus eu quam imperdiet vulputate. Phasellus tincidunt sit amet mauris a fringilla. Quisque dapibus risus eu luctus molestie. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed diam vitae quam aliquam facilisis. In hac habitasse platea dictumst. Nam ac ligula cursus odio elementum tempor a non neque. 
+O artigo \cite{fraudeItalia1} aplica redes neurais artificiais ao problema de identificar os determinantes das despesas das unidades locais de saúde da Itália, chamadas de \textbf{LHUs} (Local Health Units). Segundo o mesmo, a utilização das redes neurais é vantajosa pois detecta o que são chamadas de dependências difusas, considerando variáveis que não são completamente captadas por dependências funcionais. A ideia é compreender as similaridades nos dados orçamentarios de saúde em diferentes localidades na Itália.\\
+
+\noindent
+O artigo \cite{fraudeItalia2} tem intuito de identificar, dentre os dados de LHUs italianas, sinais de ineficiência e mal gerenciamento dos gastos. Ele investiga a aplicação de um tipo específico de redes neurais, chamado de \textbf{AWIT}\supercite{AWIT}(Artificial Neural Networks What-If Theory ) e testa a utilização uma região italiana como referência para tirar conclusões sobre dados de outras regiões, obtendo  resultados favoráveis. O artigo também afirma que , como os dados orçamentários do sistema de saúde italiano são padronizados e bem detalhados, a aplicação de redes neurais é promissora para esse tipo de identificação.
 
 
-\newpage
 \section{Aplicação dos algoritmos implementados ao problema de deteção de fraudes}
 
-A forma como os métodos estavam implementados não era adequada para processar os dados do dataset do Kaggle, além de não possibilitar a alteração da estrutura da rede de forma dinâmica. Procurávamos, então, algum framework que nos permitisse montar uma rede de forma fácil e receber o gradiente em relação aos parâmetros ajustáveis para os refinarmos manualmente de diferentes maneiras. Um exemplo de interface para criação dinâmica de rede é a da bilioteca Keras\supercite{KERAS} e está apresentada a seguir.\\
+A forma como os métodos estavam implementados não era adequada para processar os dados do dataset do Kaggle, além de não possibilitar a alteração da estrutura da rede de forma dinâmica. Procurávamos, então, algum framework que nos permitisse montar uma rede de forma fácil e receber o gradiente em relação aos parâmetros para os refinarmos manualmente de diferentes maneiras. Um exemplo de interface que permite criação dinâmica de rede é a da bilioteca Keras\supercite{KERAS} e está apresentada a seguir.\\
 \begin{lstlisting}[language=Python, caption=Interface do Keras]
 model = keras.models.Sequential([
     keras.layers.Dense(units=16, input_dim=30, activation="relu"),
@@ -132,7 +134,9 @@ model = keras.models.Sequential([
 ])
 \end{lstlisting}
 
-A solução foi alterar as implementações para o paradigma de orientação a objeto, construindo uma pequena biblioteca de \textit{Deep Learning} com base na \textit{joelnet}\supercite{joelnet}, de Joel Grus.
+
+\noindent
+A solução foi alterar as implementações para o paradigma de orientação a objeto, construindo uma pequena biblioteca de \textit{Deep Learning} com base na \textit{joelnet}\supercite{joelnet}, de Joel Grus. Assim, podemos organizar tudo de forma modularizada, sendo possível criar uma interface inspirada na mostrada acima.
 
 
 \subsection*{Módulos do repositório joelnet}
@@ -146,7 +150,7 @@ A biblioteca de Joel era composta, originalmente de 7 módulos.
 
 \item O arquivo \textbf{nn.py} define a Classe \textit{NeuralNetwork}, que é a mais importante da biblioteca. Essa Classe é a portadora dos métodos responsáveis pelo Feed-Forward e pelo Backpropagation.
 
-\item O arquivo \textbf{optim.py} define os métodos de otimização que poderão ser utilizados par ao treinamento das redes. Originalmente possuía apenas o SGD (Método do Gradiente Estocástico).
+\item O arquivo \textbf{optim.py} define os métodos de otimização que poderão ser utilizados para o treinamento das redes. Originalmente possuía apenas o SGD (Método do Gradiente Estocástico).
 \item  O arquivo \textbf{train.py} define a função \textit{train}, que é responsável pelo treinamento da rede neural.
 
 \item O arquivo \textbf{tensor.py} define o tipo abstrato \textit{Tensor}, que, para nossa implementação simples, nada mais é do que o \textit{ndarray} da biblioteca Numpy.
@@ -175,6 +179,9 @@ $$reLu(x) = \frac{x + \sqrt{x^2 + \epsilon}}{2} ,\qquad reLu'(x) = \frac{1}{2}\l
 	\item Levenberg Marquardt com condição de busca linear
 \end{itemize}
 
+
+
+\noindent
 Nas implementações atuais, foram adicionados novos tipos de parâmetros. Agora, cada camada, após receber o conteúdo da anterior multiplicado pelos pesos, soma um novo parâmetro, conhecido por \textit{bias} (viés), antes de aplicar a função de ativação. Sendo assim, cada camada $L_i$ tem valor $f_i(L_{i-1} \cdot W_i + b_i)$. Por consequência, o método \textit{backpropagation} teve que ser atualizado, agora fazendo a regra da cadeia também para calcular as derivadas parciais em relação a esses novos termos.
 
 
@@ -220,7 +227,10 @@ sendo semelhante a uma iteração do Método do Gradiente com passo $\frac{1}{\l
 Problemas não lineares de quadrados mínimos podem ser formulados da seguinte forma 
 $$f(x)=\|F(x)\|^2=\sum_{i=1}^N f_i(x)^2.$$
 Neste caso, $$\nabla^2 f(x)= J_F(x)^T J_F(x)+\sum_{i=1}^N f_i(x) \nabla^2 f_i(x).$$
-Uma possível aproximação para a Hessiana é $J_F(x)^T J_F(x)$, tendo em vista que o segundo termo ficará muito pequeno quando próximo do mínimo da função.
+Uma possível aproximação para a Hessiana é $J_F(x)^T J_F(x)$, tendo em vista que o segundo termo possui $f_i$, que queremos que seja pequeno e, próximo da solução, fica menor ainda. \\
+
+
+\noindent
 Assim, a direção de Gauss-Newton é a direção $d_k$ que satisfaz $$(J_F(x)^T J_F(x)) d_k = - \nabla f(x^k).$$
 Segundo \cite{artigoLevenberg}, o método é bem definido para quando $J_F(x)^T J_F(x)$ é invertível e, portanto, definida positiva. 
 
@@ -236,17 +246,23 @@ $$\phi (x) = \frac{1}{2}(||h(x)||^2 + ||g(x)_{+}||^2),$$
 através da minimização de um modelo de ordem \textbf{p} regularizado, como segue:
 $$min \quad M_{x^{k}}(x) + \sigma _{k}||x - x^{k}||^{p + 1} \quad sujeito\quad a \quad \underline{h}(x) = 0 \quad e \quad \underline{g}(x) <= 0.$$
 
+
+\noindent
 Entretanto, desconsiderando as restrições, podemos escrever:
-$$\phi (x) = \frac{1}{2}(||F(x)||^2),$$ que é uma soma de quadrados, como em nosso problema de interesse. Além disso, se considerarmos o caso \textbf{p = 1}, podemos pensar em $$M_{x^k} = \nabla f(x^k)^T (x - x^k) + \frac{1}{2}(x - x^k)^T B_k (x - x^k),$$ o que pode levar a
+$$\phi (x) = \frac{1}{2}(||F(x)||^2),$$ que é uma soma de quadrados, como em nosso problema de interesse. Além disso, se considerarmos o caso \textbf{p = 1}, podemos pensar em $$M_{x^k} = \nabla \phi(x^k)^T (x - x^k) + \frac{1}{2}(x - x^k)^T B_k (x - x^k),$$ o que pode levar a
 $$min \quad \nabla \phi(x^k)^T (x - x^k) + \frac{1}{2}(x - x^k)^T B_k (x - x^k) + \frac{\sigma}{2} ||x - x^k||^2.$$
 
+
+\noindent
 A solução dessa formulação resumida pode ser feita igualando o gradiente de toda a expressão a zero, o que resulta em 
 
 $$\nabla \phi(x^k) + B_k (x - x^k) + \sigma(x - x^k) = 0, $$ 
 o que implica em 
 $$x = x_k - (B_k + \sigma I)^{-1} \nabla \phi(x^k), $$ que é o próprio método de Levenberg Marquardt, se definirmos a matriz $B_k$ como $J_{F}(x)^T J_{F}(x)$.\\ 
 
-Assim, o artigo propõe uma versão estocástica do método de Levenberg Marquardt em que é imposta uma condição de descida
+
+\noindent
+Assim, o artigo propõe uma versão do método de Levenberg Marquardt em que é imposta uma condição de descida
 $$\phi(x) <= \phi(x^k) - \alpha ||x - x^k||^2$$ e realizada uma busca por um valor de $\lambda$ que a satisfaça. Segue um pseudo-código do processo:
 
 \begin{lstlisting}[language=C, caption=Levenberg Marquardt com busca linear]
@@ -257,7 +273,9 @@ while(f > f[k] - alpha*(norm(x - x[k]))^2 ){
 x[k + 1] = x;
 \end{lstlisting}
 
-Além disso, o artigo demonstra\cite{bmLS} que em alguns casos a solução é atingida com $log (\varepsilon)$ avaliações de função.
+
+\noindent
+Além disso, o artigo demonstra\supercite{bmLS} que em alguns casos, onde as linhas de $J_F(x)$ são linearmente independentes, a solução com precisão $\varepsilon$ é atingida com $log (\varepsilon)$ avaliações de função. Na seção de resultados do presente relatório está apresentado um teste aplicando o método a uma quantidade grande de dados, o que implica em uma matriz Jacobiana singular e, portanto, gradientes não linearmente independentes.
 \newpage
 \section{Resultados e Discussões}
 \subsection*{Comparação dos métodos no Problema 1}
@@ -272,6 +290,8 @@ A Figura \ref{REG} apresenta o resultado das predições de cada método, juntam
 \label{REG}
 \end{figure}
 
+
+\noindent
 Note que o melhor desempenho foi do \textbf{RMSProp}, método com passo adaptativo. Pode-se perceber que os 2 métodos quasi-Newton obtiveram os piores resultados no teste.
 
 
@@ -286,6 +306,8 @@ A Figura \ref{FRAUD} apresenta as curvas de Precision-Recall de cada um dos mét
 \label{FRAUD}
 \end{figure}
 
+
+\noindent
 O método \textbf{Adam} foi o que mais se destacou, obtendo o maior valor de AUPRC, e os métodos \textbf{SGD\_Nesterov} e \textbf{Barzilai-Borwein} tiveram um desempenho muito abaixo dos outros. Talvez com outras inicializações de parâmetros esses métodos poderiam apresentar melhorias.
 As curvas de Precision-Recall são montadas variando os \textit{tresholds} de arredondamento e registrando os valores de Precision e de Recall. Foram registradas, também, as \textbf{matrizes de confusão} dos métodos para o \textit{treshold} de $0.5$. Essas matrizes estão apresentadas na Figura \ref{CONFM}.
 
@@ -297,23 +319,49 @@ As curvas de Precision-Recall são montadas variando os \textit{tresholds} de ar
 \label{CONFM}
 \end{figure}
 
-******VERIFICAR POR QUE A SOMA NÃO ESTÁ BATENDO.
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed diam vitae quam aliquam facilisis. In hac habitasse platea dictumst. Nam ac ligula cursus odio elementum tempor a non neque. Ut ullamcorper porttitor felis quis dictum. Aenean eu metus eu quam imperdiet vulputate. Phasellus tincidunt sit amet mauris a fringilla. Quisque dapibus risus eu luctus molestie. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed diam vitae quam aliquam facilisis. In hac habitasse platea dictumst. Nam ac ligula cursus odio elementum tempor a non neque. 
 
-
+\noindent
+Pode-se perceber que o método com mais fraudes detectadas foi o Levenberg Marquardt, com 113 acertos, mas deixou 23 passarem e detectou indevidamente 31 transações limpas. O método RMSProp foi o segundo com mais detecções, com 107 fraudes identificadas e um desempenho mais equilibrado que o anterior. Já o método Adam foi o terceiro com mais fraudes detectadas, com 106, porém foi o mais balanceado de todos os métodos no teste. É interessante notar que a utilização da AUPRC (Área sob a curva de Precision-Recall) revela diferenças mais sutis entre os resultados de cada método do que as matrizes de confusão. Como a curva considera diversos \textit{tresholds} de arredondamento, ela realça a forma como cada método lida com o desbalanceamento do \textit{dataset}.
 
 \subsection*{Comparação com o Keras}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed diam vitae quam aliquam facilisis. In hac habitasse platea dictumst. Nam ac ligula cursus odio elementum tempor a non neque. Ut ullamcorper porttitor felis quis dictum. Aenean eu metus eu quam imperdiet vulputate. Phasellus tincidunt sit amet mauris a fringilla. Quisque dapibus risus eu luctus molestie. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed diam vitae quam aliquam facilisis. In hac habitasse platea dictumst. Nam ac ligula cursus odio elementum tempor a non neque. 
+Foi feita uma comparação entre o método Adam implementado no projeto e o método Adam presente na biblioteca Keras, ambos aplicados ao Problema 2. Para isso, os dados foram embaralhados da mesma maneira, a arquitetura de rede \textbf{30-24-30-35-1} aplicada ao Keras e os dados divididos como nos demais testes de deteção de fraudes. Fazendo os testes com 20 \textit{epochs} e \textit{batch\_size} 32, foram obtidos os resultados apresentados na Figura \ref{AVK}.
 
 \begin{figure}[H]
 \center
 \includegraphics[scale=0.5]{Figuras/ADAM_VS_KERAS.png}
 \caption{Comparação da implementação do Adam com o Adam da biblioteca Keras. Fonte: Autor} 
-\label{CONFM}
+\label{AVK}
 \end{figure}
 
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed diam vitae quam aliquam facilisis. In hac habitasse platea dictumst. Nam ac ligula cursus odio elementum tempor a non neque. Ut ullamcorper porttitor felis quis dictum. Aenean eu metus eu quam imperdiet vulputate. Phasellus tincidunt sit amet mauris a fringilla. Quisque dapibus risus eu luctus molestie. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed diam vitae quam aliquam facilisis. In hac habitasse platea dictumst. Nam ac ligula cursus odio elementum tempor a non neque. 
+\noindent
+Observando os valores de \textbf{AUPRC}, é possivel notar que o desempenho do algoritmo implementado no presente projeto foi levemente inferior ao do método da biblioteca Keras. As matrizes de confusão apresentadas, que são para um \textit{treshold} de 0.5, demonstram que o método implementado no projeto detectou 3 fraudes a menos, porém obteve mais acertos no geral. Claramente não há garantia de que os resultados possam ser extendidos para outros pontos iniciais ou até mesmo arquiteturas de rede, mas a proximidade dos resultados aos de uma biblioteca bem estabelecida tem caráter positivo para o projeto.
+
+
+
+\subsection*{Testes com o método de \cite{bmLS}}
+\subsubsection*{Aplicado ao Problema 1, variando $\alpha$}
+O primeiro teste realizado foi a aplicação do método ao Problema 1, com 3 diferentes valores de $\alpha$, o que implica em 3 níveis de exigência durante a busca linear pelo $\lambda$. Os resultados do teste estão apresentados na Figura \ref{LMBL_SQ} 
+\begin{figure}[H]
+\center
+\includegraphics[scale=0.5]{Figuras/REG_lmbl.png}
+\caption{Comparação de diferentes valores de $\alpha$ para o método de \cite{bmLS}. Fonte: Autor} 
+\label{LMBL_SQ}
+\end{figure}
+Note que maiores valores de $\alpha$ implicam em um decrescimento mais rápido da função, afinal serão feitas mais buscas lineares. Entretanto, o tempo de execução não escala bem com o crescimento de $\alpha$, afinal cada vez mais iterações terão o loop de busca, como pode ser observado na Figura \ref{LMBL_time}.
+\begin{figure}[H]
+\center
+\includegraphics[scale=0.6]{Figuras/lmbl_square_t.png}
+\caption{Comparação de diferentes valores de $\alpha$ para o método de \cite{bmLS}. Fonte: Autor} 
+\label{LMBL_time}
+\end{figure}
+
+\subsubsection*{Explorando os resultados de ...}
+Para testar a relação entre o número de dados e o tempo de execução, o método foi aplicado a variações do Problema 1, desde ...
+
+
+
+
 \section{Conclusão}
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed diam vitae quam aliquam facilisis. In hac habitasse platea dictumst. Nam ac ligula cursus odio elementum tempor a non neque. Ut ullamcorper porttitor felis quis dictum. Aenean eu metus eu quam imperdiet vulputate. Phasellus tincidunt sit amet mauris a fringilla. Quisque dapibus risus eu luctus molestie. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed diam vitae quam aliquam facilisis. In hac habitasse platea dictumst. Nam ac ligula cursus odio elementum tempor a non neque. 
 
