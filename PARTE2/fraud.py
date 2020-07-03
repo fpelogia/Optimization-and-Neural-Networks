@@ -33,7 +33,7 @@ y_test = np.array(y_test)
 
 inputs = X_train
 targets = np.array(y_train)
-np.random.seed(1)
+np.random.seed(2)
 net = NeuralNet([
     Linear(input_size=30, output_size=24, weights = np.random.randn(30, 24), biases = np.random.randn(24)),
     Tanh(),
@@ -53,10 +53,10 @@ net = NeuralNet([
 # ])
 
 
-n_epochs = 2
+n_epochs = 20
 #loss_list = train(net, inputs,targets, loss = MSE() ,optimizer = Adam(lr = 1e-2, gamma1 = 0.3, gamma2 = 0.3), iterator = BatchIterator(1024), num_epochs = n_epochs)
 try:
-	loss_list = train(net, inputs,targets, loss = MSE() ,optimizer = LM_cond(), iterator = BatchIterator(32), num_epochs = n_epochs)
+	loss_list = train(net, inputs,targets, loss = MSE() ,optimizer = Adam(lr = 1e-2, gamma1 = 0.3, gamma2 = 0.25), iterator = BatchIterator(32), num_epochs = n_epochs)
 except np.linalg.LinAlgError as err:
 	print('Interrompido por matriz singular')
 
@@ -70,7 +70,7 @@ plt.title("Erro quadrático x Tempo")
 plt.xlabel("número de iterações")
 plt.ylabel("erro quadrático")
 plt.scatter(list(range(0, n_epochs)),loss_list)
-plt.savefig(f'Figuras/Fraud/EQ_LM_COND.png', format='png')
+plt.savefig(f'Figuras/Fraud/Adam_IMP.png', format='png')
 plt.show()
 
 
@@ -80,7 +80,7 @@ auc_val = auc(recall, precision)
 
 conf_mat = confusion_matrix(y_test, y_pred.round())
 print(f'Confusion matrix: \n( TN | FP)\n(FN | TP) \n\n{conf_mat}')
-with open("Evaluation/LM.txt", "w") as out_file:
+with open("Evaluation/Adam_imp.txt", "w") as out_file:
 	out_str = f"Treinando com {n_epochs} epochs\nConfusion matrix: \n"
 	out_str += str(conf_mat)
 	out_str += f"\nAUPRC: {auc_val}"
@@ -93,6 +93,6 @@ plt.title(f'Precision-Recall Curve')
 plt.xlabel('Recall')
 plt.ylabel('Precision')
 plt.legend(loc='lower left')
-plt.savefig(f'Figuras/Fraud/PRC_LM_COND.png', format='png')
+plt.savefig(f'Figuras/Fraud/Adam.png', format='png')
 plt.show()
 

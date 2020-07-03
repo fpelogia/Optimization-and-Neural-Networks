@@ -198,8 +198,8 @@ class GD_cond(Optimizer):
  
 
 class LM_cond (Optimizer):
-    def __init__(self) -> None:
-        self.alpha = 1e2
+    def __init__(self, alpha: float = 1e2) -> None:
+        self.alpha = alpha
 
     def step(self, net: NeuralNet) -> None:
 
@@ -208,7 +208,9 @@ class LM_cond (Optimizer):
             predicted = net.forward(net.curr_batch.inputs)
             loss_old = net.loss_f.loss(predicted, net.curr_batch.targets)
 
-            lamb = min(max( np.linalg.norm(grad), 1e-5), 1e5)
+            #lamb = min(max( np.linalg.norm(grad)**2, 1e-5), 1e5)
+            lamb = 1e4
+
             JTJ = jac.T@jac
             sh = grad.shape
             d = np.linalg.solve(JTJ + lamb*np.eye(len(JTJ)), -grad.flatten())
@@ -228,7 +230,7 @@ class LM_cond (Optimizer):
 
             while not loss <= loss_old - self.alpha*(np.linalg.norm(param - old_param))**2:
 
-                lamb = 10*lamb
+                lamb = 2*lamb
 
                 d = np.linalg.solve(JTJ + lamb*np.eye(len(JTJ)), -grad.flatten())
                 d = d.reshape(sh)
@@ -242,6 +244,8 @@ class LM_cond (Optimizer):
                 loop_count = loop_count + 1
                 #print(f'loop : {loop_count}')
 
-                if lamb > 1e8:
+                if lamb > 1e20:
                     #print('trapaça')
                     break
+
+            net.n_eval = loop_count + 1

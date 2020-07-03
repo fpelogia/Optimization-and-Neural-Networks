@@ -15,12 +15,15 @@ def train(net: NeuralNet,
           num_epochs: int = 5000,
           iterator: DataIterator = BatchIterator(),
           loss: Loss = MSE(),
-          optimizer: Optimizer = SGD(0.001)) -> [float]:
+          optimizer: Optimizer = SGD(0.001),
+          eps: float  = -1) -> [float]:
     
     loss_list = []
+    eval_list = []
     for epoch in range(num_epochs):
         n_iter = 0
         epoch_loss = 0.0
+        net.n_eval = 0
         print(f'================   EPOCH NUMBER {epoch + 1}   ================')
         for batch in iterator(inputs, targets):
             #print(f'batch: \n{batch}')
@@ -29,16 +32,27 @@ def train(net: NeuralNet,
             net.loss_f = loss
           
             predicted = net.forward(batch.inputs)
-            epoch_loss += loss.loss(predicted, batch.targets)
+            curr_loss = loss.loss(predicted, batch.targets)
+            epoch_loss += curr_loss
             grad = loss.grad(predicted, batch.targets)
             net.backward(grad)
             optimizer.step(net)
-
             n_iter = n_iter + 1
+            
+        eval_list.append(net.n_eval)
+
+        
+
+        #eval_list.append(net.n_eval)
 
         # () / iterator.batch_size
         print(epoch, epoch_loss)
         loss_list.append(epoch_loss)
 
-    return loss_list
+        if eps > 0 and epoch_loss < eps:
+            print('precisão atingida')
+            break
+
+
+    return loss_list, eval_list
 

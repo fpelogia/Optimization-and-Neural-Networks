@@ -1,4 +1,3 @@
-
 import numpy as np
 import matplotlib.pyplot as plt
 from joelnet.train import train
@@ -9,21 +8,22 @@ from joelnet.optim import SGD, RMSProp, SGD_Nesterov, Adam, Barzilai, LM, GD_con
 from joelnet.loss import MSE, Log_loss
 import random
 import sys
+import time
 
 
-inputs = np.array([
-    [1],
-    [2],
-    [3],
-    [4],
-    [5]
-])
+# inputs = np.array([
+#     [1],
+#     [2],
+#     [3],
+#     [4],
+#     [5]
+# ])
 
 
-# inputs = []
-# for i in range(100):
-# 	inputs.append([i])
-# inputs = np.array(inputs)
+inputs = []
+for i in range(20):
+	inputs.append([i])
+inputs = np.array(inputs)
 
 # targets = np.array([
 #     [1],
@@ -44,11 +44,13 @@ net = NeuralNet([
 
 
 
-n_epochs = 200
+n_epochs = 1000
 
 #loss_list = train(net, inputs,targets, optimizer = Adam(lr = 1e-2, gamma1 = 0.3, gamma2 = 0.3),iterator = BatchIterator(batch_size = 5), num_epochs = 1000)
-loss_list = train(net, inputs,targets, loss = MSE() ,optimizer = LM_cond(), iterator = BatchIterator(batch_size =  5), num_epochs = n_epochs)
-
+start_time = time.time()
+loss_list = train(net, inputs,targets, loss = MSE() ,optimizer = SGD(1e-5), iterator = BatchIterator(batch_size =  5), num_epochs = n_epochs, eps = 2000)
+end_time = time.time()
+print(f'Tempo gasto no treinamento: {end_time - start_time}s')
 
 
 
@@ -59,29 +61,30 @@ loss_list = train(net, inputs,targets, loss = MSE() ,optimizer = LM_cond(), iter
 
 
 
+#print(f'Levenberg Marquardt com busca linear\nloss = {loss_list[len(loss_list) - 1]:.2f}')
 
-
-ex = np.linspace(0,10,10)
+ex = np.linspace(0,20,200)
 ey = []
 test_loss = []
 for val in ex:
     predicted = net.forward([val])
     ey.append(predicted)
 
-plt.show()
 plt.title("Erro quadrático x Tempo")
 plt.xlabel("número de iterações")
 plt.ylabel("erro quadrático")
 
 plt.scatter(list(range(0, n_epochs)),loss_list)
-plt.savefig(f'Figuras/Square/REG.png', format='png')
+#plt.savefig(f'Figuras/Square/EQ.png', format='png')
 plt.show() 
 
-plt.axis([0,5,0,25])
-aux = np.arange(6)
+plt.axis([0,20,0,300])
+aux = np.arange(21)
 plt.scatter(aux,aux**2,s = 30, c = "red")
-plt.plot(ex,ey)
-plt.savefig(f'Figuras/Square/EQ.png', format='png')
+plt.plot(ex,ey, label = f'Levenberg Marquardt com busca linear\nloss = {loss_list[len(loss_list) - 1]:.02f}')
+plt.legend()
+#plt.savefig(f'Figuras/Square/REG.png', format='png')
 plt.show()
+
 
 			

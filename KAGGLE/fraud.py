@@ -49,7 +49,7 @@ model = keras.models.Sequential([
 
 
 model.compile(optimizer = "adam", loss='mean_squared_error', metrics=['accuracy'])
-model.fit(X_train, y_train, validation_split = 0.0, batch_size=150, epochs=20)
+model.fit(X_train, y_train, validation_split = 0.0, batch_size=32, epochs=20)
 
 
 #PARA SALVAR OS MODELOS E DEPOIS PLOTAR A PRC
