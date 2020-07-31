@@ -11,26 +11,26 @@ import sys
 import time
 
 inputs = []
-n_epochs = 1000
+n_epochs = 10000
 eps = 5
-for j in range(5):
+for j in range(int(5)):
 	inputs.append([j])
 inputs = np.array(inputs)
 targets = inputs**2
 
-np.random.seed(2)
+np.random.seed(20)
 
 net = NeuralNet([
-    Linear(input_size=1, output_size=10, weights = np.random.randn(1, 10), biases = np.random.randn(10)),
+    Linear(input_size=1, output_size=2, weights = np.random.randn(1, 2), biases = np.random.randn(2)),
     reLu(),  
-    Linear(input_size=10, output_size=5, weights = np.random.randn(10, 5), biases = np.random.randn(5)),
+    Linear(input_size=2, output_size=2, weights = np.random.randn(2, 2), biases = np.random.randn(2)),
     reLu(),
-    Linear(input_size=5, output_size=1, weights = np.random.randn(5,1), biases = np.random.randn(1))
+    Linear(input_size=2, output_size=1, weights = np.random.randn(2,1), biases = np.random.randn(1))
 ])
 
 start_time = time.time()
 try:
-    loss_list, eval_list = train(net, inputs,targets, loss = MSE() ,optimizer = LM_cond(1e6), iterator = BatchIterator(batch_size =  5), num_epochs = n_epochs, eps = eps)
+    loss_list, eval_list = train(net, inputs,targets, loss = MSE() ,optimizer = LM_cond(1e15), iterator = BatchIterator(batch_size =  5), num_epochs = n_epochs, eps = eps)
 except np.linalg.LinAlgError as err:
     print('Interrompido por matriz singular')
     end_time = time.time()
@@ -40,16 +40,10 @@ print(f'\nt: {time_spent}s')
 
 
 
-ex = np.linspace(1,1e3,len(eval_list))
+ex = np.linspace(0, n_epochs,n_epochs)
 print(f'lenex: {len(ex)}\n lenev: {len(eval_list)}')
-plt.scatter(np.log(loss_list), eval_list)
+plt.scatter(ex, abs(np.log(loss_list)))
+plt.axis([0,n_epochs,0,n_epochs])
 plt.show()
 
-
-# loglist = []
-# for i in range(len(eval_list)):
-#     loglist.append(np.log(i))
-
-# print('eval len: ', len(eval_list))
-# print('eval l:', eval_list)
-# print(np.corrcoef(eval_list, loglist))
+print(np.corrcoef(eval_list, abs(np.log(loss_list))))

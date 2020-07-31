@@ -390,5 +390,15 @@
     \field{journaltitle}{Economic Analysis and Policy}
     \field{year}{2017}
   \endentry
+
+  \entry{SEMEION}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{title}{SEMEION - Centro Ricerche di Scienze della Comunicazione}
+    \verb{url}
+    \verb http://www.semeion.it/wordpress/en/
+    \endverb
+  \endentry
 \enddatalist
 \endinput

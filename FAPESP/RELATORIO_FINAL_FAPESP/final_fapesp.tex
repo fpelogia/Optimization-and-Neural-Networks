@@ -33,7 +33,7 @@
 \usepackage{multirow}
 \usepackage[normalem]{ulem}
 \useunder{\uline}{\ul}{}
-%\usepackage{indentfirst}	
+\usepackage{indentfirst}	
 
 
 
@@ -104,8 +104,7 @@ Este relatório aborda as realizações do período de 10/02/2020 a 31/08/2020. 
 
 \item Estudo do método de Levenberg–Marquardt, com base em \cite{TCCKleber}.
 \item Estudo teórico de \cite{bmLS}. 
-\item Testes numéricos associados a \cite{bmLS}.
-\item Aplicações de técnicas de \cite{bmLS} no problema de interesse.
+\item Testes associados a \cite{bmLS}.
 \end{itemize}
 
 \noindent
@@ -113,11 +112,14 @@ Como planejávamos, foi submetido um resumo e um \textbf{vídeo-poster} para apr
 
 \noindent
 Além disso, participamos do desenvolvimento da \textit{Ferramenta de apoio ao planejamento de salas de aula pós pandemia de Covid-19}, que é um site com objetivo de otimizar as posições das carteiras nas salas de aulas de acordo com as medidas de distanciamento propostas pelas autoridades sanitárias. Esse projeto foi desenvolvido com pesquisadores da Instituições Unifesp, UEM e IFSP. Assim, houve contato com técnicas de empacotamento, otimização com restrições e a utilização do software ALGENCAN, do projeto TANGO\supercite{TANGO}.
+\newpage
 \section{Estudo dos artigos \cite{fraudeItalia1} e \cite{fraudeItalia2}}
 O artigo \cite{fraudeItalia1} aplica redes neurais artificiais ao problema de identificar os determinantes das despesas das unidades locais de saúde da Itália, chamadas de \textbf{LHUs} (Local Health Units). Segundo o mesmo, a utilização das redes neurais é vantajosa pois detecta o que são chamadas de dependências difusas, considerando variáveis que não são completamente captadas por dependências funcionais. A ideia é compreender as similaridades nos dados orçamentarios de saúde em diferentes localidades na Itália.\\
 
 \noindent
-O artigo \cite{fraudeItalia2} tem intuito de identificar, dentre os dados de LHUs italianas, sinais de ineficiência e mal gerenciamento dos gastos. Ele investiga a aplicação de um tipo específico de redes neurais, chamado de \textbf{AWIT}\supercite{AWIT}(Artificial Neural Networks What-If Theory ) e testa a utilização uma região italiana como referência para tirar conclusões sobre dados de outras regiões, obtendo  resultados favoráveis. O artigo também afirma que , como os dados orçamentários do sistema de saúde italiano são padronizados e bem detalhados, a aplicação de redes neurais é promissora para esse tipo de identificação.
+O artigo \cite{fraudeItalia2} tem intuito de identificar, dentre os dados de LHUs italianas, sinais de ineficiência e mal gerenciamento dos gastos. Ele investiga a aplicação de um tipo específico de redes neurais, chamado de \textbf{AWIT}\supercite{AWIT}(Artificial Neural Networks What-If Theory ) e testa a utilização de uma região italiana como referência para tirar conclusões sobre dados de outras regiões, obtendo  resultados favoráveis. O artigo também afirma que , como os dados orçamentários do sistema de saúde italiano são padronizados e bem detalhados, a aplicação de redes neurais é promissora para esse tipo de identificação.
+
+Em uma apresentação do grupo \textbf{Semeion}\supercite{SEMEION}, são comparadas diversas técnicas para detectar fraudes em dados de seguros de saúde na Itália. Os testes com as redes \textbf{AWIT} foram realizados utilizando o \textbf{Semeion Software \#68} e notou-se que essa técnica se destacou em detectar seguros de saúde anômalos baseando-se no número de apólices de seguro direcionadas a certas empresas.
 
 
 \section{Aplicação dos algoritmos implementados ao problema de deteção de fraudes}
@@ -140,7 +142,7 @@ A solução foi alterar as implementações para o paradigma de orientação a o
 
 
 \subsection*{Módulos do repositório joelnet}
-A biblioteca de Joel era composta, originalmente de 7 módulos.
+A biblioteca de Joel era composta, originalmente, por 7 módulos.
 \begin{itemize}
 \item O arquivo \textbf{data.py} controla a separação dos dados em "mini lotes" (\textit{batches}).
 
@@ -275,7 +277,7 @@ x[k + 1] = x;
 
 
 \noindent
-Além disso, o artigo demonstra\supercite{bmLS} que em alguns casos, onde as linhas de $J_F(x)$ são linearmente independentes, a solução com precisão $\varepsilon$ é atingida com $log (\varepsilon)$ avaliações de função. Na seção de resultados do presente relatório está apresentado um teste aplicando o método a uma quantidade grande de dados, o que implica em uma matriz Jacobiana singular e, portanto, gradientes não linearmente independentes.
+Além disso, o artigo demonstra\supercite{bmLS} que em alguns casos, onde as linhas de $J_F(x)$ são uniformemente linearmente independentes, a solução com precisão $\varepsilon$ é atingida com $log (\varepsilon)$ avaliações de função. Na seção de resultados do presente relatório estão apresentados alguns testes experimentando esse resultado dentro e fora do cenário proposto.
 \newpage
 \section{Resultados e Discussões}
 \subsection*{Comparação dos métodos no Problema 1}
@@ -352,22 +354,77 @@ Note que maiores valores de $\alpha$ implicam em um decrescimento mais rápido d
 \begin{figure}[H]
 \center
 \includegraphics[scale=0.6]{Figuras/lmbl_square_t.png}
-\caption{Comparação de diferentes valores de $\alpha$ para o método de \cite{bmLS}. Fonte: Autor} 
+\caption{Comparação do tempo de execução com diferentes valores de $\alpha$ para o método de \cite{bmLS}. Fonte: Autor} 
 \label{LMBL_time}
 \end{figure}
 
-\subsubsection*{Explorando os resultados de ...}
-Para testar a relação entre o número de dados e o tempo de execução, o método foi aplicado a variações do Problema 1, desde ...
+\subsubsection*{Explorando os resultados de complexidade}
+O artigo \cite{bmLS} afirma que o método atinge uma precisão $\varepsilon$ após $|log \varepsilon|$ avaliações de função quando os vetores gradiente são uniformemente linearmente independentes. Para experimentar esse resultado, foram feitos 3 testes: um dentro do caso proposto e outros 2 fora. Para esses testes, foi utilizada uma arquitetura de rede \textbf{1-2-1}, como apresentada na Figura \ref{1-2-1}, com funções de ativação $f(x) = x$.
+\begin{figure}[H]
+\center
+\includegraphics[scale=0.2]{Figuras/1-2-1.png}
+\caption{Rede neural 1-2-1. Fonte: Autor} 
+\label{1-2-1}
+\end{figure}
+Para esses testes, foram removidos os parâmetros \textbf{bias}, para que a predição resultasse em uma reta 
+$$y = (w_1w_3 + w_2w_4)\cdot x = m\cdot x,$$
+que estará sempre fixada na origem e apenas a sua inclinação é variável. A inicialização escolhida foi $$\begin{pmatrix}w_1 \\ w_2\end{pmatrix} = \begin{pmatrix}1 \\ 2\end{pmatrix} \quad \text{e} \quad \begin{pmatrix}w_3 & w_4\end{pmatrix} = \begin{pmatrix}3 & 4\end{pmatrix}.$$
+
+Para o primeiro teste, apenas 1 dado de treinamento foi enviado: $x_1 = 1 \quad y_1 = 1^2 = 1$.
+Note que, havendo apenas um dado de treinamento, existirá apenas 1 gradiente:
+$$\nabla f_1(w)^T = \begin{pmatrix}-x_1 w_3 & -x_1 w_4 & -x_1 w_1 & -x_1 w_2  \end{pmatrix},$$
+o que implica que não há dependências lineares, correspondendo ao caso de interesse para a afirmação do artigo.
+Assim, a Figura \ref{lmbl1} apresenta o resultado da aplicação do método a esse caso, utilizando uma precisão de $1\times10^{-4}$ e $\alpha = 1\times10^{2}$.
+
+\begin{figure}[H]
+\center
+\includegraphics[scale=0.5]{Figuras/lmbl1.png}
+\caption{Teste do método de \cite{bmLS} com 1 dado (gradiente LI). Fonte: Autor} 
+\label{lmbl1}
+\end{figure}
+
+É possível notar que o método convergiu com facilidade e a correlação entre o número de avaliações de função e $|log \varepsilon|$ foi de aproximadamente $0.995$, sendo coerente com os resultados do artigo. A correlação foi medida a partir das iterações com erro abaixo de 1.\\
+
+Caso sejam enviados 2 dados de treinamento, note que os gradientes serão:
+$$\nabla f_1(w)^T = \begin{pmatrix}-x_1 w_3 & -x_1 w_4 & -x_1 w_1 & -x_1 w_2  \end{pmatrix}$$
+$$ = x1 \cdot \begin{pmatrix}-w_3 & -w_4 & -w_1 & - w_2  \end{pmatrix},$$
+$$\nabla f_2(w)^T = \begin{pmatrix}-x_2 w_3 & -x_2 w_4 & -x_2 w_1 & -x_2 w_2  \end{pmatrix},$$
+$$ = x2 \cdot \begin{pmatrix}-w_3 & -w_4 & -w_1 & - w_2  \end{pmatrix},$$
+Devido ao termo $\begin{pmatrix}-w_3 & -w_4 & -w_1 & - w_2  \end{pmatrix}$, os gradientes mostram-se linearmente \textbf{dependentes}.
+
+Os 2 outros testes, seguem a ideia apresentada na Figura \ref{t23}.
+\begin{figure}[H]
+\center
+\includegraphics[scale=0.5]{Figuras/2testes.png}
+\caption{Ideia dos testes 2 e 3 para o método de \cite{bmLS}. Fonte: Autor} 
+\label{t23}
+\end{figure}
+O segundo teste envia $x = [1,1.5]$ e $y = [1,1.5]$, que é um caso em que a aproximação exata por uma reta é possível, embora os gradientes inda sejam linearmente dependentes. A Figura \ref{lmbl2} apresenta o resultado da aplicação do método a esse caso, utilizando uma precisão de $1\times10^{-4}$ e $\alpha = 1\times10^{2}$.
+\begin{figure}[H]
+\center
+\includegraphics[scale=0.5]{Figuras/lmbl2.png}
+\caption{Teste do método de \cite{bmLS} com 2 dados y = x (gradientes LD, mas aproximação possível). Fonte: Autor} 
+\label{lmbl2}
+\end{figure}
+
+Embora o caso tenha gradientes linearmente dependentes, fugindo do cenário proposto pelo artigo, o caráter linear do problema permitiu uma convergência fácil, com a correlação entre o número de avaliações de função e $|log \varepsilon|$ sendo de aproximadamente $0.991$. A correlação foi medida a partir das iterações com erro abaixo de 1.
 
 
+O terceiro teste envia $x = [1,1.5]$ e $y = [1,2.25]$, que é um caso em que a aproximação do modelo não conseguirá exatidão e os gradientes seguem sendo linearmente dependentes. A Figura \ref{lmbl3} apresenta o resultado da aplicação do método a esse caso, utilizando uma precisão de $1\times10^{-4}$ e $\alpha = 1\times10^{2}$. 
 
+\begin{figure}[H]
+\center
+\includegraphics[scale=0.5]{Figuras/lmbl3.png}
+\caption{Teste do método de \cite{bmLS} com 2 dados y = x**2 (gradientes LD). Fonte: Autor} 
+\label{lmbl3}
+\end{figure}
+
+Note que, como o caso foge do cenário proposto pelo artigo e tem um caráter não linear, o método teve dificuldades em cumprir a condição da busca e a correlação entre o número de avaliações de função e $|log \varepsilon|$ foi de aproximadamente $0.318$. A correlação foi medida a partir das iterações com erro abaixo de 1.
 
 \section{Conclusão}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed diam vitae quam aliquam facilisis. In hac habitasse platea dictumst. Nam ac ligula cursus odio elementum tempor a non neque. Ut ullamcorper porttitor felis quis dictum. Aenean eu metus eu quam imperdiet vulputate. Phasellus tincidunt sit amet mauris a fringilla. Quisque dapibus risus eu luctus molestie. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed diam vitae quam aliquam facilisis. In hac habitasse platea dictumst. Nam ac ligula cursus odio elementum tempor a non neque. 
+Portanto, as realizações do período de vigência da bolsa foram importantes para o aprendizado do aluno, possibilitando o contato com assuntos que não seriam abordados durante sua graduação e podem ser relevantes para a vida profissional. Além disso, o aluno teve seu primeiro contato com o ambiente acadêmico e de pesquisa. O projeto proporcionou, também, uma maior familiaridade com a linguagem de programação Python e algumas de suas bibliotecas de matemática e ciência de dados.
 
-
-
-
+Nos períodos referentes a ambos os relatórios, foram feitas revisões bibliográficas de artigos e a verificação prática de seus resultados em cenários levemente divergentes. A aplicação dos métodos estudados à detecção de fraudes foi importante para comparar a eficácia de cada estratégia a esse tipo de problema. Isso é relevante, pois a detecção de anomalias é largamente utilizada para diferentes domínios de aplicação na atualidade.
 
 
 \newpage

@@ -53,10 +53,11 @@ net = NeuralNet([
 # ])
 
 
-n_epochs = 20
+n_epochs = 10
+
 #loss_list = train(net, inputs,targets, loss = MSE() ,optimizer = Adam(lr = 1e-2, gamma1 = 0.3, gamma2 = 0.3), iterator = BatchIterator(1024), num_epochs = n_epochs)
 try:
-	loss_list = train(net, inputs,targets, loss = MSE() ,optimizer = LM_cond(1e4,1e2), iterator = BatchIterator(len(inputs)), num_epochs = n_epochs)
+	loss_list = train(net, inputs,targets, loss = MSE() ,optimizer = LM_cond(1e3,1e2), iterator = BatchIterator(len(inputs)), num_epochs = n_epochs)
 except np.linalg.LinAlgError as err:
 	print('Interrompido por matriz singular')
 
@@ -69,9 +70,12 @@ y_pred = np.array(y_pred)
 plt.title("Erro quadrático x Tempo")
 plt.xlabel("número de iterações")
 plt.ylabel("erro quadrático")
-plt.scatter(list(range(0, n_epochs)),loss_list)
-plt.savefig(f'Figuras/Fraud/Adam_IMP.png', format='png')
+#plt.scatter(list(range(0, len(loss_list))),loss_list)
+plt.scatter(list(range(0, len(loss_list))),loss_list)
+plt.axis([0,len(loss_list),0,len(loss_list)])
 plt.show()
+#plt.savefig(f'Figuras/Fraud/Adam_IMP.png', format='png')
+
 
 
 precision, recall, _ = precision_recall_curve(y_test, y_pred)
@@ -80,11 +84,11 @@ auc_val = auc(recall, precision)
 
 conf_mat = confusion_matrix(y_test, y_pred.round())
 print(f'Confusion matrix: \n( TN | FP)\n(FN | TP) \n\n{conf_mat}')
-with open("Evaluation/Adam_imp.txt", "w") as out_file:
-	out_str = f"Treinando com {n_epochs} epochs\nConfusion matrix: \n"
-	out_str += str(conf_mat)
-	out_str += f"\nAUPRC: {auc_val}"
-	out_file.write(out_str)
+# with open("Evaluation/Adam_imp.txt", "w") as out_file:
+# 	out_str = f"Treinando com {n_epochs} epochs\nConfusion matrix: \n"
+# 	out_str += str(conf_mat)
+# 	out_str += f"\nAUPRC: {auc_val}"
+# 	out_file.write(out_str)
 
 
 print(f'\n\nAUPRC: {auc_val}')
@@ -93,6 +97,6 @@ plt.title(f'Precision-Recall Curve')
 plt.xlabel('Recall')
 plt.ylabel('Precision')
 plt.legend(loc='lower left')
-plt.savefig(f'Figuras/Fraud/Adam.png', format='png')
+#plt.savefig(f'Figuras/Fraud/Adam.png', format='png')
 plt.show()
 

@@ -23,6 +23,7 @@ Repeated entry---line 241 of file bibliografianova.bib
  : @misc{TCCKleber
  :                ,
 I'm skipping whatever remains of this entry
+Warning--I didn't find a database entry for "Software68"
 Biblatex version: 3.13
 Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
 Too many commas in name 1 of "Bueno, L. F., Mart{\'i}nez, J. M. and E. G. Birgin" for entry bmLS
@@ -68,45 +69,45 @@ Too many commas in name 1 of "Bueno, L. F., Mart{\'i}nez, J. M. and E. G. Birgin
 while executing---line 2805 of file biblatex.bst
 Too many commas in name 1 of "Bueno, L. F., Mart{\'i}nez, J. M. and E. G. Birgin" for entry bmLS
 while executing---line 2805 of file biblatex.bst
-You've used 12 entries,
+You've used 13 entries,
             6365 wiz_defined-function locations,
-            1263 strings with 10902 characters,
-and the built_in function-call counts, 82234 in all, are:
-= -- 5991
+            1269 strings with 11027 characters,
+and the built_in function-call counts, 83783 in all, are:
+= -- 6027
 > -- 1671
-< -- 503
-+ -- 2020
-- -- 683
-* -- 6206
-:= -- 8820
+< -- 517
++ -- 2021
+- -- 685
+* -- 6269
+:= -- 8847
 add.period$ -- 0
-call.type$ -- 12
-change.case$ -- 239
+call.type$ -- 13
+change.case$ -- 243
 chr.to.int$ -- 52
-cite$ -- 22
-duplicate$ -- 7837
-empty$ -- 7198
+cite$ -- 24
+duplicate$ -- 8057
+empty$ -- 7458
 format.name$ -- 895
-if$ -- 17248
+if$ -- 17624
 int.to.chr$ -- 0
-int.to.str$ -- 27
+int.to.str$ -- 28
 missing$ -- 0
-newline$ -- 383
+newline$ -- 393
 num.names$ -- 568
-pop$ -- 3981
+pop$ -- 4306
 preamble$ -- 1
-purify$ -- 318
+purify$ -- 321
 quote$ -- 0
-skip$ -- 2557
+skip$ -- 2622
 stack$ -- 0
-substring$ -- 10922
-swap$ -- 1796
-text.length$ -- 399
-text.prefix$ -- 11
+substring$ -- 10932
+swap$ -- 1865
+text.length$ -- 412
+text.prefix$ -- 12
 top$ -- 1
-type$ -- 396
+type$ -- 430
 warning$ -- 0
-while$ -- 1105
+while$ -- 1108
 width$ -- 0
-write$ -- 372
+write$ -- 381
 (There were 22 error messages)

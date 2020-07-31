@@ -2,6 +2,7 @@ from joelnet.nn import NeuralNet
 from joelnet.jacobian import grad_flatten
 import numpy as np
 import copy
+import time 
 
 class Optimizer:
     def step(self, net: NeuralNet) -> None:
@@ -198,20 +199,30 @@ class GD_cond(Optimizer):
  
 
 class LM_cond (Optimizer):
-    def __init__(self, alpha: float = 1e2) -> None:
+    def __init__(self, alpha: float = 1e2, lamb: float = 1e2) -> None:
         self.alpha = alpha
+        self.lamb = lamb
 
     def step(self, net: NeuralNet) -> None:
-
+        count = 0
         for param, grad, jac in net.params_and_grads_v3():
-
+            if count == 0:
+                print('Dando o passo para w1 e w2')
+            else:
+                print('Dando o passo para w3 e w4')
+            count = count + 1
             predicted = net.forward(net.curr_batch.inputs)
             loss_old = net.loss_f.loss(predicted, net.curr_batch.targets)
 
-            #lamb = min(max( np.linalg.norm(grad.flatten()), 1e-5), 1e5)
-            lamb = 1e4
 
+            #lamb = min(max( np.linalg.norm(gf), 1e-5), 1e5)
+            #print(f'GRADIENTE: {gf}')
+            #print(f'NORMA GRAD: {np.linalg.norm(gf)}')
+            lamb = self.lamb
+            print('grad: ', grad)
+            print('jac: ', jac)
             JTJ = jac.T@jac
+            print('jtj: ', JTJ)
             sh = grad.shape
             d = np.linalg.solve(JTJ + lamb*np.eye(len(JTJ)), -grad.flatten())
             d = d.reshape(sh)
@@ -225,13 +236,22 @@ class LM_cond (Optimizer):
             predicted = net.forward(net.curr_batch.inputs)
             loss = net.loss_f.loss(predicted, net.curr_batch.targets)
 
-
+            print('param :', param)
+            #time.sleep(30)
+            lixo = input('oi')
             loop_count = 0
-
+            print(f'erro: {loss} / {loss_old - self.alpha*(np.linalg.norm(param - old_param))**2}')
             while not loss <= loss_old - self.alpha*(np.linalg.norm(param - old_param))**2:
-
+                #print(f'f: {loss_old}')
+                #print(f'x: {param}\nx^k: {old_param}')
+                #print(f'x-xk: {param - old_param}')
+                #print('||x-xk||^2: ',np.linalg.norm(param - old_param)**2)
+                
+                if loop_count == 0:
+                    print('entrou no loop da busca linear')
                 lamb = 2*lamb
-
+                
+                #print(f'erro: {loss} / {loss_old - self.alpha*(np.linalg.norm(param - old_param))**2}')
                 d = np.linalg.solve(JTJ + lamb*np.eye(len(JTJ)), -grad.flatten())
                 d = d.reshape(sh)
                 param += d
@@ -242,10 +262,13 @@ class LM_cond (Optimizer):
                 # print('produto interno: ', inner_p )
 
                 loop_count = loop_count + 1
-                #print(f'loop : {loop_count}')
 
-                if lamb > 1e20:
-                    #print('trapaça')
+                if lamb > 1e10 :
+                    print('LAMBDA GRANDE')
                     break
 
+            if loop_count > 0:
+                print(f'saiu do loop com {loop_count} giros')
+            else:
+                print('não entrou no loop')
             net.n_eval = net.n_eval + loop_count + 1
