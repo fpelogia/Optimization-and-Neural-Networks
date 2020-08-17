@@ -33,8 +33,9 @@
 \usepackage{multirow}
 \usepackage[normalem]{ulem}
 \useunder{\uline}{\ul}{}
-\usepackage{indentfirst}	
-
+%\usepackage{indentfirst}	
+\usepackage{parskip}
+\setlength{\parskip}{0.5cm}
 
 
 \lstset { %
@@ -87,8 +88,8 @@
 
 \section*{Resumo do projeto}
  Neste projeto pretende-se estudar métodos de otimização, em especial algoritmos estocásticos,
-aplicados ao treinamento de redes neurais. Em um trabalho\supercite{bmLS} recente proposto por E. G. Birgin, L. F. Bueno e
-J. M. Martínez, On the complexity of solving feasibility problems with regularized models , foi apresentado um algoritmo
+aplicados ao treinamento de redes neurais. Em um trabalho\cite{bmLS} recente proposto por E. G. Birgin, L. F. Bueno e
+J. M. Martínez, \textit{``On the complexity of solving feasibility problems with regularized models"} , foi apresentado um algoritmo
 de primeira ordem com bons resultados de complexidade para problemas de quadrados mínimos.
 Um dos principais pontos da pesquisa deste projeto será desenvolver uma versão estocástica desse
 algoritmo. Serão analisados os desempenhos dos algoritmos estudados quando aplicados à detecção
@@ -111,20 +112,33 @@ Este relatório aborda as realizações do período de 10/02/2020 a 31/08/2020. 
 Como planejávamos, foi submetido um resumo e um \textbf{vídeo-poster} para apresentação no Congresso Acadêmico UNIFESP 2020, que ocorreu virtualmente, dos dias 13 a 17 de julho.\\
 
 \noindent
-Além disso, participamos do desenvolvimento da \textit{Ferramenta de apoio ao planejamento de salas de aula pós pandemia de Covid-19}, que é um site com objetivo de otimizar as posições das carteiras nas salas de aulas de acordo com as medidas de distanciamento propostas pelas autoridades sanitárias. Esse projeto foi desenvolvido com pesquisadores da Instituições Unifesp, UEM e IFSP. Assim, houve contato com técnicas de empacotamento, otimização com restrições e a utilização do software ALGENCAN, do projeto TANGO\supercite{TANGO}.
+Além disso, participamos do desenvolvimento da \textit{Ferramenta de apoio ao planejamento de salas de aula pós pandemia de Covid-19}, que é um site com objetivo de otimizar as posições das carteiras nas salas de aulas de acordo com as medidas de distanciamento propostas pelas autoridades sanitárias. Esse projeto foi desenvolvido com pesquisadores da Instituições Unifesp, UEM e IFSP. Assim, houve contato com técnicas de empacotamento, otimização com restrições e a utilização do software ALGENCAN, do projeto TANGO\cite{TANGO}. É interessante, também, apontar que uma das formulações presentes no projeto envolve um problema de quadrados mínimos. Esse foi um dos fatores principais para o acompanhamento do projeto por parte do bolsista.
 \newpage
 \section{Estudo dos artigos \cite{fraudeItalia1} e \cite{fraudeItalia2}}
 O artigo \cite{fraudeItalia1} aplica redes neurais artificiais ao problema de identificar os determinantes das despesas das unidades locais de saúde da Itália, chamadas de \textbf{LHUs} (Local Health Units). Segundo o mesmo, a utilização das redes neurais é vantajosa pois detecta o que são chamadas de dependências difusas, considerando variáveis que não são completamente captadas por dependências funcionais. A ideia é compreender as similaridades nos dados orçamentarios de saúde em diferentes localidades na Itália.\\
 
 \noindent
-O artigo \cite{fraudeItalia2} tem intuito de identificar, dentre os dados de LHUs italianas, sinais de ineficiência e mal gerenciamento dos gastos. Ele investiga a aplicação de um tipo específico de redes neurais, chamado de \textbf{AWIT}\supercite{AWIT}(Artificial Neural Networks What-If Theory ) e testa a utilização de uma região italiana como referência para tirar conclusões sobre dados de outras regiões, obtendo  resultados favoráveis. O artigo também afirma que , como os dados orçamentários do sistema de saúde italiano são padronizados e bem detalhados, a aplicação de redes neurais é promissora para esse tipo de identificação.
+O artigo \cite{fraudeItalia2} tem intuito de identificar, dentre os dados de LHUs italianas, sinais de ineficiência e mal gerenciamento dos gastos. Ele investiga a aplicação de um tipo específico de redes neurais, chamado de \textbf{AWIT}\cite{AWIT}(Artificial Neural Networks What-If Theory ) e testa a utilização de uma região italiana como referência para tirar conclusões sobre dados de outras regiões, obtendo  resultados favoráveis. O artigo também afirma que , como os dados orçamentários do sistema de saúde italiano são padronizados e bem detalhados, a aplicação de redes neurais é promissora para esse tipo de identificação.
 
-Em uma apresentação do grupo \textbf{Semeion}\supercite{SEMEION}, são comparadas diversas técnicas para detectar fraudes em dados de seguros de saúde na Itália. Os testes com as redes \textbf{AWIT} foram realizados utilizando o \textbf{Semeion Software \#68} e notou-se que essa técnica se destacou em detectar seguros de saúde anômalos baseando-se no número de apólices de seguro direcionadas a certas empresas.
+Em uma apresentação do grupo \textbf{Semeion}\cite{SEMEION}, são comparadas diversas técnicas para detectar fraudes em dados de seguros de saúde na Itália. Os testes com as redes \textbf{AWIT} foram realizados utilizando o \textbf{Semeion Software \#68} e notou-se que essa técnica se destacou em detectar seguros de saúde anômalos baseando-se no número de apólices de seguro direcionadas a certas empresas.
 
 
 \section{Aplicação dos algoritmos implementados ao problema de deteção de fraudes}
+No primeiro semestre de desenvolvimento do projeto, foram estudados e implementados os 9 métodos de otimização a seguir:
+\begin{itemize}
+\item Método do Gradiente (\textit{Gradient Descent}).
+\item Método do Gradiente Estocástico (\textit{SGD}).
+\item Método do Gradiente Estocástico com Redução de Variância (\textit{SVRG}).
+\item Averaged Stochastic Gradient Descent (\textit{SAG} e \textit{SAGA}).
+\item Método do Gradiente com Passo Adaptativo (\textit{Adagrad}).
+\item Método \textit{RMSProp}.
+\item Métodos com momento de Polyak: foram feitas implementações com o \textit{SGD} e \textit{SVRG}.
+\item Métodos com momento de Nesterov: foram feitas implementações com o \textit{SGD} e \textit{SVRG}.
+\item Método \textit{Adam}.
+\end{itemize}
+No Relatório Científico de Progresso, que foi enviado à FAPESP, a ideia de cada um deles foi explicada e foram apresentados 2 tipos de resultado. O primeiro tipo foi uma comparação dos métodos \textbf{implementados} aplicados a um problema de quadrados mínimos simples. O segundo tipo foi a aplicação de alguns dos métodos ao problema de detecção das fraudes do \textit{dataset} de interesse, mas utilizando implementações prontas através da biblioteca Keras\cite{KERAS}. O próximo passo, assim, foi tentar adaptar as versões implementadas pelo bolsista ao problema de interesse.
 
-A forma como os métodos estavam implementados não era adequada para processar os dados do dataset do Kaggle, além de não possibilitar a alteração da estrutura da rede de forma dinâmica. Procurávamos, então, algum framework que nos permitisse montar uma rede de forma fácil e receber o gradiente em relação aos parâmetros para os refinarmos manualmente de diferentes maneiras. Um exemplo de interface que permite criação dinâmica de rede é a da bilioteca Keras\supercite{KERAS} e está apresentada a seguir.\\
+A forma como as implementações tinham sido feitas não era adequada para processar os dados do \textit{dataset} do Kaggle, além de não possibilitar a alteração da estrutura da rede de forma dinâmica. Procurávamos, então, algum framework que nos permitisse montar uma rede de forma fácil e receber o gradiente em relação aos parâmetros para os refinarmos manualmente de diferentes maneiras. Um exemplo de interface que permite criação dinâmica de rede é a da bilioteca Keras\cite{KERAS} e está apresentada a seguir.\\
 \begin{lstlisting}[language=Python, caption=Interface do Keras]
 model = keras.models.Sequential([
     keras.layers.Dense(units=16, input_dim=30, activation="relu"),
@@ -138,7 +152,7 @@ model = keras.models.Sequential([
 
 
 \noindent
-A solução foi alterar as implementações para o paradigma de orientação a objeto, construindo uma pequena biblioteca de \textit{Deep Learning} com base na \textit{joelnet}\supercite{joelnet}, de Joel Grus. Assim, podemos organizar tudo de forma modularizada, sendo possível criar uma interface inspirada na mostrada acima.
+A solução foi alterar as implementações para o paradigma de orientação a objeto, construindo uma pequena biblioteca de \textit{Deep Learning} com base na \textit{joelnet}\cite{joelnet}, de Joel Grus. Assim, podemos organizar tudo de forma modularizada, sendo possível criar uma interface inspirada na mostrada acima. É importante dizer que nem todos os 9 métodos foram implementados novamente, mas apenas os mais clássicos e os que obtiveram resultados interessantes na fase inicial do projeto.
 
 
 \subsection*{Módulos do repositório joelnet}
@@ -169,7 +183,7 @@ $$reLu(x) = \frac{x + \sqrt{x^2 + \epsilon}}{2} ,\qquad reLu'(x) = \frac{1}{2}\l
 \item Em \textbf{data.py} foi alterada a forma de sorteio de batches. Agora, para cada \textit{epoch}, embaralhamos os dados e retiramos amostras adjuntas do tamanho do \textit{batch\_size}. 
 \item Em \textbf{nn.py}, o método chamado \textit{params\_and\_grads} ganhou 3 novas versões, para conseguir retornar a matriz Jacobiana e também valores antigos de parâmetro e de gradiente, pois são necessários para alguns dos métodos de otimização implementados.
 \item Em \textbf{train.py}, a função \textit{train} agora retorna uma lista chamada \textit{loss\_list}, que contém os valores do erro de cada \textit{epoch}, definido como a soma dos erros de cada batch avaliado. Essa lista pode ser utilizada para construir um gráfico do erro ao longo das epochs.
-\item Criado um módulo \textbf{jacobian.py} com 2 funções auxiliares para cálculo da matriz jacobiana.
+\item Criado um módulo \textbf{jacobian.py} com duas funções auxiliares para cálculo da matriz jacobiana.
 \item Em \textbf{optim.py}, temos agora os seguintes métodos de otimização:
 \begin{itemize}
 	\item Método do Gradiente Estocástico - SGD
@@ -203,22 +217,22 @@ A base de dados \textit{Credit Card Fraud Detection} possui  284,807 transaçõe
 \section{Estudo do Método de Levenberg–Marquardt}
 Primeiramente foi feito um estudo sobre alguns métodos clássicos de segunda ordem.
 \subsection*{Método de Newton}
-É um dos mais clássicos métodos de segunda ordem. Ele calcula a matriz Hessiana da função erro, resolve o sistema  $$\nabla ^2 f(x^k)d = -\nabla f(x^k),$$ e utiliza a direção encontrada para dar o passo $x^{k + 1} = x^k + {\color {red}t}  d$.\\
-O método com $t = 1$ apresenta convergência local quadrática \supercite{newtonJM}, porém só consegue convergência global procurando um $t$ adequado com uma busca linear, como a de Armijo \supercite{armijo1966} $$f(x^k+{\color {red}t}d^k) \leq f(x^k)+\alpha {\color {red}t} \nabla f(x^k)^T d^k.$$\\Como a matriz Hessiana possui formato $n \times n$, onde $n$ é o número de variáveis, seu cálculo demonstra-se custoso. O método é mais caro ainda, pois além de calcular essa matriz, resolve um sistema com ela e com o gradiente, resultando em algo da ordem de $O(n^3)$.
+O método de Newton é um dos mais clássicos métodos de segunda ordem. Neste método, calcula-se a matriz Hessiana da função erro, resolve-se o sistema  $$\nabla ^2 f(x^k)d = -\nabla f(x^k),$$ e utiliza-se a direção encontrada para dar o passo $x^{k + 1} = x^k + {\color {red}t}  d$.\\
+O método com $t = 1$ apresenta convergência local quadrática \cite{newtonJM}, porém só consegue convergência global procurando um $t$ adequado com uma busca linear, como a de Armijo \cite{armijo1966} $$f(x^k+{\color {red}t}d^k) \leq f(x^k)+\alpha {\color {red}t} \nabla f(x^k)^T d^k.$$\\Como a matriz Hessiana possui formato $n \times n$, onde $n$ é o número de variáveis, seu cálculo demonstra-se custoso. O método é mais caro ainda, pois além de calcular essa matriz, resolve um sistema com ela e com o gradiente, resultando em algo da ordem de $O(n^3)$.
 
 \subsection*{Quasi-Newton: Método da Secante, Barzilai-Borwein e Gauss-Newton}
-A ideia principal dos métodos Quasi-Newton é herdar a eficácia do Método de Newton utilizando alternativas ou aproximações mais baratas da Hessiana.
+A ideia principal dos métodos Quasi-Newton é herdar uma eficácia próxima à do Método de Newton utilizando alternativas ou aproximações mais baratas da Hessiana.
 \subsubsection*{Método da Secante}
-Propõe a escolha de uma matriz $M_k$ tal que   
+O Método da Secante propõe a escolha de uma matriz $M_k$ tal que   
 		$$M_k s^{k-1}= y^{k-1} ,$$
 		onde $$s^{k-1}=x^k-x^{k-1} \text{ e } y^{k-1}=\nabla f(x^k)- \nabla f(x^{k-1}) .$$
-%Rever se eu escrevo F ou grad(F)...
 Assim, pode-se encontrar $d_k$ tal que
 		$$M_kd^k=-F(x^k)  ,$$
 		para que seja possível fazer $$x^{k+1}=x^k+d^k .$$
+Na versão equivalente do método para 1 variável, essa escolha de $M_k$ representa a interpolação dos 2 últimos valores de $x$, formando uma reta secante à curva em questão e justificando o nome do método.
 
 \subsubsection*{Método de Barzilai-Borwein}
-Sua proposta é ser um intermediário entre o Método do Gradiente, que possui complexidade $O(n)$, e o Método da Secante, que tem complexidade $O(n^2)$. Sendo 
+O Método de Barzilai-Borwein propõe-se a ser um intermediário entre o Método do Gradiente, que possui complexidade $O(n)$, e o Método da Secante, que tem complexidade $O(n^2)$. Sendo 
 $$s^{k-1}=x^k-x^{k-1} \text{ e } y^{k-1}=\nabla f(x^k)- \nabla f(x^{k-1}) ,$$
 A ideia é definir $M_k = \lambda_k I$, implicando que $\lambda_ks^k=y^k$. A melhor aproximação para essa equação é $$\lambda_k=\frac{(s^k)^Ty^k}{\|s^k\|^2}.$$
 Então, a direção tomada pelo método será $$ d = - \frac{1}{\lambda_k} \nabla f(x^k),$$
@@ -237,16 +251,16 @@ Assim, a direção de Gauss-Newton é a direção $d_k$ que satisfaz $$(J_F(x)^T
 Segundo \cite{artigoLevenberg}, o método é bem definido para quando $J_F(x)^T J_F(x)$ é invertível e, portanto, definida positiva. 
 
 \subsubsection*{Método de Levenberg-Marquardt}
-Por fim, o Método de Levenberg-Marquardt é uma mistura do Método de Gauss-Newton com um passo de Barzilai-Borwein. A dreção é calculada da seguinte forma
+Por fim, o Método de Levenberg-Marquardt propõe um ajuste para que a matrix $J^TJ$ seja definida positiva, somando um valor $\lambda$ em sua diagonal a fim de deixar os autovalores positivos. Esse ajuste é conhecido por \textbf{regularização}, e é utilizado no artigo \cite{bmLS}, cujo estudo será comentado na seção seguinte deste relatório. A dreção é calculada da seguinte forma
 $$(J_F(x)^T J_F(x) + \lambda I) d_k = - \nabla f(x^k),$$
 onde $\lambda$ pode ser definido de diversas maneiras. Para a implementação realizada, foi considerado $$\lambda = ||\nabla f(x^k)||.$$ 
-Note que pequenos valores de $\lambda$ deixam o método mais parecido com o Método de Gauss-Newton, enquanto valores altos de $\lambda$ aproximam a um passo de Barzilai-Borwein.
+Note que pequenos valores de $\lambda$ deixam o método mais parecido com o Método de Gauss-Newton, enquanto valores altos de $\lambda$ deixam o método parecido com um Método do Gradiente com passo $\frac{1}{\lambda}$.
 
 \section{Estudo teórico de \cite{bmLS}}
-O artigo, definindo restrições baratas $\underline{g}(x) = 0$ e $\underline{h}(x) <= 0$ e restrições custosas $g(x) = 0$ e $h(x) <= 0$, propõe a minimização de uma função 
+O artigo, definindo restrições baratas $\underline{g}(x) = 0$ e $\underline{h}(x) \leq 0$ e restrições custosas $g(x) = 0$ e $h(x) \leq 0$, propõe a minimização de uma função 
 $$\phi (x) = \frac{1}{2}(||h(x)||^2 + ||g(x)_{+}||^2),$$
 através da minimização de um modelo de ordem \textbf{p} regularizado, como segue:
-$$min \quad M_{x^{k}}(x) + \sigma _{k}||x - x^{k}||^{p + 1} \quad sujeito\quad a \quad \underline{h}(x) = 0 \quad e \quad \underline{g}(x) <= 0.$$
+$$min \quad M_{x^{k}}(x) + \sigma _{k}||x - x^{k}||^{p + 1} \quad sujeito\quad a \quad \underline{h}(x) = 0 \quad e \quad \underline{g}(x) \leq 0.$$
 
 
 \noindent
@@ -265,7 +279,7 @@ $$x = x_k - (B_k + \sigma I)^{-1} \nabla \phi(x^k), $$ que é o próprio método
 
 \noindent
 Assim, o artigo propõe uma versão do método de Levenberg Marquardt em que é imposta uma condição de descida
-$$\phi(x) <= \phi(x^k) - \alpha ||x - x^k||^2$$ e realizada uma busca por um valor de $\lambda$ que a satisfaça. Segue um pseudo-código do processo:
+$$\phi(x) \leq \phi(x^k) - \alpha ||x - x^k||^2$$ e realizada uma busca por um valor de $\lambda$ que a satisfaça. Segue um pseudo-código do processo:
 
 \begin{lstlisting}[language=C, caption=Levenberg Marquardt com busca linear]
 x, f = LevenbergMarquardt(x[k], lambda);
@@ -277,7 +291,7 @@ x[k + 1] = x;
 
 
 \noindent
-Além disso, o artigo demonstra\supercite{bmLS} que em alguns casos, onde as linhas de $J_F(x)$ são uniformemente linearmente independentes, a solução com precisão $\varepsilon$ é atingida com $log (\varepsilon)$ avaliações de função. Na seção de resultados do presente relatório estão apresentados alguns testes experimentando esse resultado dentro e fora do cenário proposto.
+Além disso, o artigo demonstra\cite{bmLS} que em alguns casos, onde as linhas de $J_F(x)$ são uniformemente linearmente independentes, a solução com precisão $\varepsilon$ é atingida com $log (\varepsilon)$ avaliações de função. Na seção de resultados do presente relatório estão apresentados alguns testes experimentando esse resultado dentro e fora do cenário proposto.
 \newpage
 \section{Resultados e Discussões}
 \subsection*{Comparação dos métodos no Problema 1}
@@ -378,7 +392,7 @@ Assim, a Figura \ref{lmbl1} apresenta o resultado da aplicação do método a es
 
 \begin{figure}[H]
 \center
-\includegraphics[scale=0.5]{Figuras/lmbl1.png}
+\includegraphics[scale=0.7]{Figuras/lmbl1.png}
 \caption{Teste do método de \cite{bmLS} com 1 dado (gradiente LI). Fonte: Autor} 
 \label{lmbl1}
 \end{figure}
@@ -402,7 +416,7 @@ Os 2 outros testes, seguem a ideia apresentada na Figura \ref{t23}.
 O segundo teste envia $x = [1,1.5]$ e $y = [1,1.5]$, que é um caso em que a aproximação exata por uma reta é possível, embora os gradientes inda sejam linearmente dependentes. A Figura \ref{lmbl2} apresenta o resultado da aplicação do método a esse caso, utilizando uma precisão de $1\times10^{-4}$ e $\alpha = 1\times10^{2}$.
 \begin{figure}[H]
 \center
-\includegraphics[scale=0.5]{Figuras/lmbl2.png}
+\includegraphics[scale=0.7]{Figuras/lmbl2.png}
 \caption{Teste do método de \cite{bmLS} com 2 dados y = x (gradientes LD, mas aproximação possível). Fonte: Autor} 
 \label{lmbl2}
 \end{figure}
@@ -414,12 +428,35 @@ O terceiro teste envia $x = [1,1.5]$ e $y = [1,2.25]$, que é um caso em que a a
 
 \begin{figure}[H]
 \center
-\includegraphics[scale=0.5]{Figuras/lmbl3.png}
-\caption{Teste do método de \cite{bmLS} com 2 dados y = x**2 (gradientes LD). Fonte: Autor} 
+\includegraphics[scale=0.7]{Figuras/lmbl3.png}
+\caption{Teste do método de \cite{bmLS} com 2 dados $y = x^2$ (gradientes LD). Fonte: Autor} 
 \label{lmbl3}
 \end{figure}
 
-Note que, como o caso foge do cenário proposto pelo artigo e tem um caráter não linear, o método teve dificuldades em cumprir a condição da busca e a correlação entre o número de avaliações de função e $|log \varepsilon|$ foi de aproximadamente $0.318$. A correlação foi medida a partir das iterações com erro abaixo de 1.
+Note que o método teve mais dificuldade e a correlação entre o número de avaliações de função e $|log \varepsilon|$ foi de aproximadamente $0.318$. Entretanto, isso ocorre pois a função não chega a zero, mas a um valor mínimo que deveria ser levado em conta para calcular essa correlação.
+
+Assim, para encontrar esse valor, sabemos que
+$$\begin{pmatrix}1 \\ 1.5\end{pmatrix}m = \begin{pmatrix}1 \\ 2.25\end{pmatrix},$$
+e, por quadrados mínimos, a melhor aproximação vem de
+$$\begin{pmatrix}1 & 1.5\end{pmatrix}\begin{pmatrix}1 \\ 1.5\end{pmatrix}m = \begin{pmatrix}1 & 1.5\end{pmatrix}\begin{pmatrix}1 \\ 2.25\end{pmatrix}.$$
+Assim,
+$$3.25 m = 4.375,$$
+o que implica que
+$$m = \frac{35}{26} = 1.346153846.$$
+Logo, desejamos ver o valor mínimo que $f$ assume:
+$$f_{min} = \frac{1}{2}  ((1m - 1)^2 + (1.5m - 2.25)^2 ) $$
+$$= \frac{9}{104} = 0.08653846154 \approx 0.0865  $$
+
+Assim, podemos utilizar uma precisão de parada um pouco maior que esse valor e considerar $|log(\varepsilon - 0.0865)|$ para fazer a correlação. Dessa forma, o efeito gerado seria o mesmo de somar esse valor à função objetivo da minimização. Assim, a Figura \ref{a2sh} apresenta os resultados desse teste para $\alpha = 1\times 10^{2}$.
+
+\begin{figure}[H]
+\center
+\includegraphics[scale=0.7]{Figuras/a2sh.png}
+\caption{Teste com 2 dados $y = x^2$ (gradientes LD), utilizando o valor $0.0866$ como condição de parada e $\alpha = 1\times 10^{2}$. Fonte: Autor} 
+\label{a2sh}
+\end{figure}
+
+Note que agora o método consegue atingir a precisão e que a correlação do número de avaliações de função com $|log(\varepsilon - 0.0865)|$ vale aproximadamente $0.972$, seguindo o resultado de complexidade do artigo, embora os gradientes sejam linearmente dependentes. 
 
 \section{Conclusão}
 Portanto, as realizações do período de vigência da bolsa foram importantes para o aprendizado do aluno, possibilitando o contato com assuntos que não seriam abordados durante sua graduação e podem ser relevantes para a vida profissional. Além disso, o aluno teve seu primeiro contato com o ambiente acadêmico e de pesquisa. O projeto proporcionou, também, uma maior familiaridade com a linguagem de programação Python e algumas de suas bibliotecas de matemática e ciência de dados.
