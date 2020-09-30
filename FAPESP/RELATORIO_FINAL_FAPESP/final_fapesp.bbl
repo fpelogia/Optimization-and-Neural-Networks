@@ -22,7 +22,7 @@
       {{hash=AL}{%
          family={Armijo},
          familyi={A\bibinitperiod},
-         given={Larry},
+         given={L.},
          giveni={L\bibinitperiod},
       }}%
     }
@@ -43,7 +43,7 @@
     \verb https://projecteuclid.org:443/euclid.pjm/1102995080
     \endverb
     \field{volume}{16}
-    \field{journaltitle}{Pacific J. Math.}
+    \field{journaltitle}{Pacific Journal of Mathematics}
     \field{year}{1966}
   \endentry
 
@@ -130,25 +130,28 @@
   \endentry
 
   \entry{bmLS}{article}{}
-    \name{author}{2}{}{%
-      {{hash=BMJMLF}{%
-         family={Bueno},
-         familyi={B\bibinitperiod},
-         suffix={L.\bibnamedelima F.},
-         suffixi={L\bibinitperiod\bibinitdelim F\bibinitperiod},
-         given={Mart{\'i}nez J.\bibnamedelima M.},
-         giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod\bibinitdelim
-  M\bibinitperiod},
-      }}%
+    \name{author}{3}{}{%
       {{hash=BEG}{%
          family={Birgin},
          familyi={B\bibinitperiod},
          given={E.\bibnamedelima G.},
          giveni={E\bibinitperiod\bibinitdelim G\bibinitperiod},
       }}%
+      {{hash=BLF}{%
+         family={Bueno},
+         familyi={B\bibinitperiod},
+         given={L.\bibnamedelima F.},
+         giveni={L\bibinitperiod\bibinitdelim F\bibinitperiod},
+      }}%
+      {{hash=MJM}{%
+         family={Mart{\'i}nez},
+         familyi={M\bibinitperiod},
+         given={J.\bibnamedelima M.},
+         giveni={J\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
     }
-    \strng{namehash}{BLFMJMBEG1}
-    \strng{fullhash}{BLFMJMBEG1}
+    \strng{namehash}{BEGBLFMJM1}
+    \strng{fullhash}{BEGBLFMJM1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
     \field{sortinit}{B}
@@ -167,13 +170,13 @@
       {{hash=BM}{%
          family={Buscema},
          familyi={B\bibinitperiod},
-         given={Massimo},
+         given={M.},
          giveni={M\bibinitperiod},
       }}%
       {{hash=TW}{%
          family={Tastle},
          familyi={T\bibinitperiod},
-         given={William},
+         given={W.},
          giveni={W\bibinitperiod},
       }}%
     }
@@ -268,11 +271,11 @@
          given={L.},
          giveni={L\bibinitperiod},
       }}%
-      {{hash=SR}{%
-         family={S.},
-         familyi={S\bibinitperiod},
-         given={Russoa},
-         giveni={R\bibinitperiod},
+      {{hash=RS}{%
+         family={Russoa},
+         familyi={R\bibinitperiod},
+         given={S.},
+         giveni={S\bibinitperiod},
       }}%
       {{hash=CA}{%
          family={Cicchetti},
@@ -308,8 +311,8 @@
     \list{publisher}{1}{%
       {Springer Science}%
     }
-    \strng{namehash}{MFSGLSRCARMCSMGBPM1}
-    \strng{fullhash}{MFSGLSRCARMCSMGBPM1}
+    \strng{namehash}{MFSGLRSCARMCSMGBPM1}
+    \strng{fullhash}{MFSGLRSCARMCSMGBPM1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
     \field{sortinit}{M}
@@ -338,11 +341,11 @@
          given={L.},
          giveni={L\bibinitperiod},
       }}%
-      {{hash=SR}{%
-         family={S.},
-         familyi={S\bibinitperiod},
-         given={Russoa},
-         giveni={R\bibinitperiod},
+      {{hash=RS}{%
+         family={Russoa},
+         familyi={R\bibinitperiod},
+         given={S.},
+         giveni={S\bibinitperiod},
       }}%
       {{hash=CA}{%
          family={Cicchetti},
@@ -378,8 +381,8 @@
     \list{publisher}{1}{%
       {Elsevier}%
     }
-    \strng{namehash}{MFSGLSRCARMCSMGBPM1}
-    \strng{fullhash}{MFSGLSRCARMCSMGBPM1}
+    \strng{namehash}{MFSGLRSCARMCSMGBPM1}
+    \strng{fullhash}{MFSGLRSCARMCSMGBPM1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
     \field{sortinit}{M}
@@ -389,6 +392,46 @@
   on Artificial Neural Networks}
     \field{journaltitle}{Economic Analysis and Policy}
     \field{year}{2017}
+  \endentry
+
+  \entry{PRC}{article}{}
+    \name{author}{2}{}{%
+      {{hash=ST}{%
+         family={Saito},
+         familyi={S\bibinitperiod},
+         given={T.},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=RM}{%
+         family={Rehmsmeier},
+         familyi={R\bibinitperiod},
+         given={M.},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Public Library of Science}%
+    }
+    \strng{namehash}{STRM1}
+    \strng{fullhash}{STRM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \verb{doi}
+    \verb 10.1371/journal.pone.0118432
+    \endverb
+    \field{number}{3}
+    \field{pages}{1\bibrangedash 21}
+    \field{title}{The Precision-Recall Plot Is More Informative than the ROC
+  Plot When Evaluating Binary Classifiers on Imbalanced Datasets}
+    \verb{url}
+    \verb https://doi.org/10.1371/journal.pone.0118432
+    \endverb
+    \field{volume}{10}
+    \field{journaltitle}{PLOS ONE}
+    \field{month}{03}
+    \field{year}{2015}
   \endentry
 
   \entry{SEMEION}{misc}{}

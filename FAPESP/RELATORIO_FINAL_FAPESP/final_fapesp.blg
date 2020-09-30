@@ -19,95 +19,47 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: final_fapesp-blx.bib
 Database file #2: bibliografianova.bib
-Repeated entry---line 241 of file bibliografianova.bib
- : @misc{TCCKleber
- :                ,
-I'm skipping whatever remains of this entry
-Warning--I didn't find a database entry for "Software68"
 Biblatex version: 3.13
 Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
-Too many commas in name 1 of "Bueno, L. F., Mart{\'i}nez, J. M. and E. G. Birgin" for entry bmLS
-while executing---line 2689 of file biblatex.bst
-Too many commas in name 1 of "Bueno, L. F., Mart{\'i}nez, J. M. and E. G. Birgin" for entry bmLS
-while executing---line 2689 of file biblatex.bst
-Too many commas in name 1 of "Bueno, L. F., Mart{\'i}nez, J. M. and E. G. Birgin" for entry bmLS
-while executing---line 2689 of file biblatex.bst
-Too many commas in name 1 of "Bueno, L. F., Mart{\'i}nez, J. M. and E. G. Birgin" for entry bmLS
-while executing---line 2689 of file biblatex.bst
-Too many commas in name 1 of "Bueno, L. F., Mart{\'i}nez, J. M. and E. G. Birgin" for entry bmLS
-while executing---line 2693 of file biblatex.bst
-Too many commas in name 1 of "Bueno, L. F., Mart{\'i}nez, J. M. and E. G. Birgin" for entry bmLS
-while executing---line 2699 of file biblatex.bst
-Too many commas in name 1 of "Bueno, L. F., Mart{\'i}nez, J. M. and E. G. Birgin" for entry bmLS
-while executing---line 2703 of file biblatex.bst
-Too many commas in name 1 of "Bueno, L. F., Mart{\'i}nez, J. M. and E. G. Birgin" for entry bmLS
-while executing---line 2703 of file biblatex.bst
-Too many commas in name 1 of "Bueno, L. F., Mart{\'i}nez, J. M. and E. G. Birgin" for entry bmLS
-while executing---line 2707 of file biblatex.bst
-Too many commas in name 1 of "Bueno, L. F., Mart{\'i}nez, J. M. and E. G. Birgin" for entry bmLS
-while executing---line 2713 of file biblatex.bst
-Too many commas in name 1 of "Bueno, L. F., Mart{\'i}nez, J. M. and E. G. Birgin" for entry bmLS
-while executing---line 2717 of file biblatex.bst
-Too many commas in name 1 of "Bueno, L. F., Mart{\'i}nez, J. M. and E. G. Birgin" for entry bmLS
-while executing---line 2717 of file biblatex.bst
-Too many commas in name 1 of "Bueno, L. F., Mart{\'i}nez, J. M. and E. G. Birgin" for entry bmLS
-while executing---line 2757 of file biblatex.bst
 Reallocated singl_function (elt_size=4) to 100 items from 50.
-Too many commas in name 1 of "Bueno, L. F., Mart{\'i}nez, J. M. and E. G. Birgin" for entry bmLS
-while executing---line 2805 of file biblatex.bst
-Too many commas in name 1 of "Bueno, L. F., Mart{\'i}nez, J. M. and E. G. Birgin" for entry bmLS
-while executing---line 2805 of file biblatex.bst
-Too many commas in name 1 of "Bueno, L. F., Mart{\'i}nez, J. M. and E. G. Birgin" for entry bmLS
-while executing---line 2805 of file biblatex.bst
-Too many commas in name 1 of "Bueno, L. F., Mart{\'i}nez, J. M. and E. G. Birgin" for entry bmLS
-while executing---line 2805 of file biblatex.bst
-Too many commas in name 1 of "Bueno, L. F., Mart{\'i}nez, J. M. and E. G. Birgin" for entry bmLS
-while executing---line 2805 of file biblatex.bst
-Too many commas in name 1 of "Bueno, L. F., Mart{\'i}nez, J. M. and E. G. Birgin" for entry bmLS
-while executing---line 2805 of file biblatex.bst
-Too many commas in name 1 of "Bueno, L. F., Mart{\'i}nez, J. M. and E. G. Birgin" for entry bmLS
-while executing---line 2805 of file biblatex.bst
-Too many commas in name 1 of "Bueno, L. F., Mart{\'i}nez, J. M. and E. G. Birgin" for entry bmLS
-while executing---line 2805 of file biblatex.bst
-You've used 13 entries,
+You've used 14 entries,
             6365 wiz_defined-function locations,
-            1269 strings with 11027 characters,
-and the built_in function-call counts, 83783 in all, are:
-= -- 6027
-> -- 1671
-< -- 517
-+ -- 2021
-- -- 685
-* -- 6269
-:= -- 8847
+            1276 strings with 11256 characters,
+and the built_in function-call counts, 89464 in all, are:
+= -- 6349
+> -- 1848
+< -- 578
++ -- 2202
+- -- 753
+* -- 6626
+:= -- 9369
 add.period$ -- 0
-call.type$ -- 13
-change.case$ -- 243
-chr.to.int$ -- 52
-cite$ -- 24
-duplicate$ -- 8057
-empty$ -- 7458
-format.name$ -- 895
-if$ -- 17624
+call.type$ -- 14
+change.case$ -- 279
+chr.to.int$ -- 58
+cite$ -- 26
+duplicate$ -- 8813
+empty$ -- 7902
+format.name$ -- 982
+if$ -- 18811
 int.to.chr$ -- 0
-int.to.str$ -- 28
+int.to.str$ -- 31
 missing$ -- 0
-newline$ -- 393
-num.names$ -- 568
-pop$ -- 4306
+newline$ -- 436
+num.names$ -- 637
+pop$ -- 4648
 preamble$ -- 1
-purify$ -- 321
+purify$ -- 365
 quote$ -- 0
-skip$ -- 2622
+skip$ -- 2898
 stack$ -- 0
-substring$ -- 10932
-swap$ -- 1865
-text.length$ -- 412
-text.prefix$ -- 12
+substring$ -- 11210
+swap$ -- 2075
+text.length$ -- 448
+text.prefix$ -- 13
 top$ -- 1
-type$ -- 430
+type$ -- 464
 warning$ -- 0
-while$ -- 1108
+while$ -- 1204
 width$ -- 0
-write$ -- 381
-(There were 22 error messages)
+write$ -- 423
